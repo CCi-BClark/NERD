@@ -30,7 +30,6 @@ NerdMain::NerdMain(QWidget *parent) :
     ui->menuStop->setShortcut(Qt::CTRL + Qt::Key_H);
     ui->btnNext->setShortcut(Qt::CTRL + Qt::Key_N);
     ui->btnPrev->setShortcut(Qt::CTRL + Qt::Key_B);
-
 }
 
 NerdMain::~NerdMain(){
