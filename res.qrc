@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/cci-horizontal-black-large.png</file>
+        <file>img/arrowright.gif</file>
+        <file>img/arrowdown.gif</file>
+    </qresource>
+</RCC>
