@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Current Record Tracker</string>
   </property>
   <widget class="QLabel" name="labCurrentRecord">
    <property name="geometry">

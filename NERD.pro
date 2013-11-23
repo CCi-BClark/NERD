@@ -19,11 +19,14 @@ TEMPLATE = app
 SOURCES += main.cpp\
         nerdmain.cpp \
     recordwindow.cpp \
-    aboutwindow.cpp
+    aboutwindow.cpp \
+    stdafx.cpp
 
 HEADERS  += nerdmain.h \
     recordwindow.h \
-    aboutwindow.h
+    aboutwindow.h \
+    stdafx.h \
+    targetver.h
 
 FORMS    += nerdmain.ui \
     recordwindow.ui \

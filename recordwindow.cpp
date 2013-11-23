@@ -1,6 +1,11 @@
+#define MOD_NOREPEAT    0x4000
+#define MOD_ALT         0x0001
+
 #include "recordwindow.h"
 #include "ui_recordwindow.h"
+#include "stdafx.h"
 #include <QDebug>
+#include <QWindow>
 
 RecordWindow::RecordWindow(QWidget *parent) :
     QDialog(parent),
@@ -58,4 +63,8 @@ void RecordWindow::setClipBoard(){
 
 int RecordWindow::getRecordNum(){
     return currentR;
+}
+
+int RecordWindow::getColumnNum(){
+    return currentC;
 }

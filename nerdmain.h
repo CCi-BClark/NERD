@@ -46,6 +46,8 @@ protected slots:
     void setCurrentCell(int row, int col);// Set current cell.
     void setNextRecord();           // Goto next record.
     void setPrevRecord();           // Goto previous record.
+    void setNextCell(void);         // Goto next cell(tab key)
+    void setPrevCell(void);         // Goto previous cell(Ctrl+Tab)
 
 private slots:
     void about(void);               // Show about window.

@@ -22,6 +22,7 @@ public:
     ~RecordWindow();
 
     int getRecordNum(void);
+    int getColumnNum(void);
 
 public slots:
     void setRecords(QXlsx::Document *&file);

@@ -1,12 +1,16 @@
+#define MOD_NOREPEAT    0x4000
+#define MOD_ALT         0x0001
+#include "stdafx.h"
+#include <QDebug>
 #include "nerdmain.h"
 #include "ui_nerdmain.h"
+#include <windows.h>
 
 NerdMain::NerdMain(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::NerdMain){
     ui->setupUi(this);
     winRecord = new RecordWindow;
-
     toggleDataElem(false);
 
     connect(ui->menuAbout,SIGNAL(triggered()),this,SLOT(about()));
@@ -28,8 +32,8 @@ NerdMain::NerdMain(QWidget *parent) :
     ui->menuStart->setShortcut(Qt::CTRL + Qt::Key_D);
     ui->menuStart->setShortcut(Qt::CTRL + Qt::Key_S);
     ui->menuStop->setShortcut(Qt::CTRL + Qt::Key_H);
-    ui->btnNext->setShortcut(Qt::CTRL + Qt::Key_N);
-    ui->btnPrev->setShortcut(Qt::CTRL + Qt::Key_B);
+    ui->btnNext->setShortcut(Qt::ALT + Qt::Key_D);
+    ui->btnPrev->setShortcut(Qt::ALT + Qt::Key_F);
 }
 
 NerdMain::~NerdMain(){
@@ -84,12 +88,6 @@ void NerdMain::open(){
         setFile();
     }
 }
-
-void NerdMain::start(){
-    winRecord->show();
-    toggleStartStop();
-}
-
 void NerdMain::toggleDataElem(bool isData){
     if(isData){
         ui->btnPrev->setEnabled(false);
@@ -152,6 +150,9 @@ void NerdMain::setNextRecord(){
     if(0 < current) {
         setCurrentRecord(current);
     }
+    if(!ui->btnPrev->isEnabled()){
+        ui->btnPrev->setEnabled(true);
+    }
 }
 
 void NerdMain::setPrevRecord(){
@@ -167,6 +168,38 @@ void NerdMain::setPrevRecord(){
     }
 }
 
+void NerdMain::setNextCell(){
+    int currentCol = winRecord->getColumnNum();
+    int currentRow = winRecord->getRecordNum()-1;
+
+    if(currentCol < range->columnCount()-1) {
+        setCurrentCell(currentRow, currentCol+1);
+    } else {
+        if(!ui->btnPrev->isEnabled()){
+            ui->btnPrev->setEnabled(true);
+        }
+        if(currentRow < range->rowCount()-2){
+            setNextRecord();
+        }
+    }
+}
+
+void NerdMain::setPrevCell(){
+    int currentCol = winRecord->getColumnNum();
+    int currentRow = winRecord->getRecordNum()-1;
+
+    if (currentCol > 0){
+        setCurrentCell(currentRow,currentCol-1);
+    } else {
+        if(!ui->btnNext->isEnabled()){
+            ui->btnNext->setEnabled(true);
+        }
+        if (currentRow > 0) {
+            setCurrentCell(currentRow-1, range->columnCount()-1);
+        }
+    }
+}
+
 void NerdMain::about(){
     AboutWindow *winAbout;
     winAbout = new AboutWindow;
@@ -177,3 +210,21 @@ void NerdMain::about(){
 void NerdMain::openHomepage(){
     QDesktopServices::openUrl(QUrl("http://www.cci.edu", QUrl::TolerantMode));
 }
+
+void NerdMain::start(){
+    toggleStartStop();
+    winRecord->show();
+
+    // Start system wide hotkey listener
+    QApplication::processEvents();
+    MSG msg;
+    while(GetMessage(&msg,NULL,0,0)){
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
+        if (msg.message == WM_HOTKEY){
+            if (msg.wParam == 1) setNextCell();
+            if (msg.wParam == 2) setPrevCell();
+        }
+    }// Stop
+}
+
