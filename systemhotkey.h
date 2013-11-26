@@ -4,30 +4,34 @@
 #define MOD_CONTROL     0x0002
 #define MOD_ALT         0x0001
 
+#include <QObject>
 #include <string>
 #include <vector>
 #include "stdafx.h"
 
+class SystemHotkey : public QObject {
+    Q_OBJECT
 
-class SystemHotkey {
 public:
-    explicit SystemHotkey(void);
+    explicit SystemHotkey(QObject *parent = 0);
     ~SystemHotkey();
 
     void addKey(int keyID, UINT holdKey, char charKey);
     void connectFunction(int keyID, std::string func);
     void removeKey(int keyID);
 
+public slots:
     void beginHotkeys(void);
     void haltHotkeys(void);
 
-public:
+//signals:
+
 
 private:
     typedef std::pair<int, std::string> key;
 
     void listen(void);
-    void run(int wParam);
+    void run(int pos);
 
     bool running;
     MSG msg;

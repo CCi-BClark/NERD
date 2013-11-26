@@ -26,6 +26,7 @@ NerdMain::NerdMain(QWidget *parent) :
     connect(ui->tableData, SIGNAL(cellDoubleClicked(int,int)),this,SLOT(setCurrentCell(int,int)));
     connect(ui->btnNext,SIGNAL(clicked()),this,SLOT(setNextRecord()));
     connect(ui->btnPrev,SIGNAL(clicked()),this,SLOT(setPrevRecord()));
+    connect(winRecord,SIGNAL(finished(int)),hotkey,SLOT(haltHotkeys()));
     //connect(,SIGNAL(),,SLOT());
 
     // Create keyboard shortcuts
@@ -106,21 +107,23 @@ void NerdMain::open(){
 void NerdMain::toggleDataElem(bool isData){
     if(isData){
         ui->btnPrev->setEnabled(false);
+        ui->btnPrev->setVisible(true);
+        ui->btnNext->setVisible(true);
         ui->tableData->setVisible(true);
         ui->btnOpen->setText("Change File");
         ui->btnStart->setVisible(true);
-        this->setMinimumHeight(400);
-        this->setMaximumHeight(400);
+        this->size().setWidth(400);
+        this->size().setHeight(400);
         ui->menuRun->setEnabled(true);
     } else {
         ui->btnPrev->setEnabled(false);
+        ui->btnPrev->setVisible(false);
+        ui->btnNext->setVisible(false);
         ui->tableData->setVisible(false);
         ui->btnOpen->setText("Open File");
         ui->btnStart->setVisible(false);
-        this->setMinimumHeight(84);
-        this->setMaximumHeight(84);
-        this->setMaximumWidth(400);
-        this->setMinimumWidth(400);
+        this->size().setHeight(64);
+        this->size().setWidth(400);
         ui->menuRun->setEnabled(false);
     }
 }

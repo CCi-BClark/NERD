@@ -1,7 +1,8 @@
 #include "systemhotkey.h"
 #include <QDebug>
 
-SystemHotkey::SystemHotkey(void) {
+SystemHotkey::SystemHotkey(QObject *parent) :
+    QObject(parent) {
     running = false;
 }
 
@@ -15,7 +16,6 @@ void SystemHotkey::removeKey(int keyID){
         if(val.first == keyID){
             UnregisterHotKey(NULL,val.first);
             hotkeys.erase(hotkeys.begin() + i);
-            qDebug() << "Removing wParam " << i;
         }
     }
 }
@@ -51,6 +51,6 @@ void SystemHotkey::listen(){
     }
 }
 
-void SystemHotkey::run(int wParam){
-    qDebug() << "Running function on wParam " << wParam;
+void SystemHotkey::run(int pos){
+    qDebug() << "Running function on wParam in position " << pos;
 }

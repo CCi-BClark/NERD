@@ -11,6 +11,8 @@ RecordWindow::RecordWindow(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::RecordWindow){
     ui->setupUi(this);
+    setWindowFlags(Qt::WindowStaysOnTopHint);
+    this->move(0,0);
 }
 
 RecordWindow::~RecordWindow(){
