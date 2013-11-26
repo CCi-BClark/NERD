@@ -51,6 +51,7 @@ protected slots:
     void setPrevRecord();           // Goto previous record.
     void setNextCell(void);         // Goto next cell(tab key)
     void setPrevCell(void);         // Goto previous cell(Ctrl+Tab)
+    void hotkeyPressed(int position);
 
 private slots:
     void about(void);               // Show about window.

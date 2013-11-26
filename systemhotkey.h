@@ -19,13 +19,14 @@ public:
     void addKey(int keyID, UINT holdKey, char charKey);
     void connectFunction(int keyID, std::string func);
     void removeKey(int keyID);
+    int getHotkey(int position);
 
 public slots:
     void beginHotkeys(void);
     void haltHotkeys(void);
 
-//signals:
-
+signals:
+    void runHotkey(int position);
 
 private:
     typedef std::pair<int, std::string> key;

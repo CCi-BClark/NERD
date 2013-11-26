@@ -3,5 +3,7 @@
         <file>img/cci-horizontal-black-large.png</file>
         <file>img/arrowright.gif</file>
         <file>img/arrowdown.gif</file>
+        <file>img/cci-small.png</file>
     </qresource>
+    <qresource prefix="/ IDI_ICON1               ICON    DISCARDABLE     &quot;ico.ico&quot;"/>
 </RCC>

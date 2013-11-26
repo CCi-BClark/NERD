@@ -5,6 +5,7 @@
 #include "nerdmain.h"
 #include "ui_nerdmain.h"
 #include <windows.h>
+#include <QSizePolicy>
 
 
 NerdMain::NerdMain(QWidget *parent) :
@@ -15,28 +16,40 @@ NerdMain::NerdMain(QWidget *parent) :
     hotkey = new SystemHotkey;
     toggleDataElem(false);
 
+    // UIX windows
     connect(ui->menuAbout,SIGNAL(triggered()),this,SLOT(about()));
+    connect(ui->menuHomepage,SIGNAL(triggered()),this,SLOT(openHomepage()));
     connect(ui->btnOpen,SIGNAL(clicked()),this,SLOT(open()));
     connect(ui->menuOpen,SIGNAL(triggered()),this,SLOT(open()));
     connect(ui->menuExit,SIGNAL(triggered()),this,SLOT(close()));
+
+    // Record setup
     connect(ui->btnStart,SIGNAL(clicked()),this,SLOT(startStop()));
-    connect(ui->menuHomepage,SIGNAL(triggered()),this,SLOT(openHomepage()));
     connect(winRecord,SIGNAL(finished(int)),this,SLOT(startStop()));
+    connect(winRecord,SIGNAL(finished(int)),hotkey,SLOT(haltHotkeys()));
     connect(ui->tableData, SIGNAL(cellEntered(int,int)),this,SLOT(setCurrentRecord(int)));
     connect(ui->tableData, SIGNAL(cellDoubleClicked(int,int)),this,SLOT(setCurrentCell(int,int)));
+
+    // Record Navigation
     connect(ui->btnNext,SIGNAL(clicked()),this,SLOT(setNextRecord()));
     connect(ui->btnPrev,SIGNAL(clicked()),this,SLOT(setPrevRecord()));
-    connect(winRecord,SIGNAL(finished(int)),hotkey,SLOT(haltHotkeys()));
-    //connect(,SIGNAL(),,SLOT());
+    connect(ui->btnNextCell,SIGNAL(clicked()),this,SLOT(setNextCell()));
+    connect(ui->btnPrevCell,SIGNAL(clicked()),this,SLOT(setPrevCell()));
+    connect(ui->menuNextRecord,SIGNAL(triggered()),this,SLOT(setNextRecord()));
+    connect(ui->menuPrevRecord,SIGNAL(triggered()),this,SLOT(setPrevRecord()));
+    connect(ui->menuNextCell,SIGNAL(triggered()),this,SLOT(setNextCell()));
+    connect(ui->menuPrevCell,SIGNAL(triggered()),this,SLOT(setPrevCell()));
+    connect(hotkey, SIGNAL(runHotkey(int)),this,SLOT(hotkeyPressed(int)));
 
-    // Create keyboard shortcuts
+    // Create application window hotkeys
     ui->menuExit->setShortcut(Qt::CTRL + Qt::Key_Q);
     ui->menuOpen->setShortcut(Qt::CTRL + Qt::Key_O);
-    ui->menuStart->setShortcut(Qt::CTRL + Qt::Key_D);
     ui->menuStart->setShortcut(Qt::CTRL + Qt::Key_S);
-    ui->menuStop->setShortcut(Qt::CTRL + Qt::Key_H);
-    ui->btnNext->setShortcut(Qt::ALT + Qt::Key_D);
-    ui->btnPrev->setShortcut(Qt::ALT + Qt::Key_F);
+    ui->menuStop->setShortcut(Qt::CTRL + Qt::Key_S);
+    ui->menuNextCell->setShortcut(Qt::CTRL + Qt::Key_X);
+    ui->menuPrevCell->setShortcut(Qt::CTRL + Qt::Key_A);
+    ui->menuNextRecord->setShortcut(Qt::ALT + Qt::Key_X);
+    ui->menuPrevRecord->setShortcut(Qt::ALT + Qt::Key_A);
 }
 
 // (Start) Help Menu functions
@@ -107,24 +120,28 @@ void NerdMain::open(){
 void NerdMain::toggleDataElem(bool isData){
     if(isData){
         ui->btnPrev->setEnabled(false);
-        ui->btnPrev->setVisible(true);
-        ui->btnNext->setVisible(true);
-        ui->tableData->setVisible(true);
+        ui->btnPrev->setHidden(false);
+        ui->btnNext->setHidden(false);
+        ui->btnPrevCell->setHidden(false);
+        ui->btnNextCell->setHidden(false);
+        ui->tableData->setHidden(false);
         ui->btnOpen->setText("Change File");
-        ui->btnStart->setVisible(true);
-        this->size().setWidth(400);
-        this->size().setHeight(400);
+        ui->btnStart->setHidden(false);
+        this->resize(400,400);
         ui->menuRun->setEnabled(true);
+        //this->setSizePolicy(QSizePolicy::verticalPolicy());
     } else {
         ui->btnPrev->setEnabled(false);
-        ui->btnPrev->setVisible(false);
-        ui->btnNext->setVisible(false);
-        ui->tableData->setVisible(false);
+        ui->btnPrev->setHidden(true);
+        ui->btnNext->setHidden(true);
+        ui->btnPrevCell->setHidden(true);
+        ui->btnNextCell->setHidden(true);
+        ui->tableData->setHidden(true);
         ui->btnOpen->setText("Open File");
-        ui->btnStart->setVisible(false);
-        this->size().setHeight(64);
-        this->size().setWidth(400);
+        ui->btnStart->setHidden(true);
+        this->resize(400, 60);
         ui->menuRun->setEnabled(false);
+        this->sizePolicy().setHorizontalPolicy(QSizePolicy::Minimum);
     }
 }
 // (Stop)
@@ -206,6 +223,26 @@ void NerdMain::setPrevCell(){
         }
     }
 }
+
+void NerdMain::hotkeyPressed(int position){
+    int val = hotkey->getHotkey(position);
+    switch (val) {
+    case 1:
+        setPrevCell();
+        break;
+    case 2:
+        setNextCell();
+        break;
+    case 3:
+        setPrevRecord();
+        break;
+    case 4:
+        setNextRecord();
+        break;
+    default:
+        break;
+    }
+}
 // (Stop)
 
 // (Start) Start/stop sequence functions.
@@ -220,10 +257,14 @@ void NerdMain::startStop(){
 
 void NerdMain::start(){
     toggleMenu(true);
-    hotkey->addKey(3, MOD_CONTROL, 'A');
-    hotkey->addKey(4, MOD_ALT, 'B');
-    hotkey->connectFunction(3,"setNextCell()");
-    hotkey->connectFunction(4,"setPrevCell()");
+    hotkey->addKey(1, MOD_CONTROL, 'A');
+    hotkey->addKey(2, MOD_CONTROL, 'X');
+    hotkey->addKey(3, MOD_ALT, 'A');
+    hotkey->addKey(4, MOD_ALT, 'X');
+    hotkey->connectFunction(1,"setPrevCell()");
+    hotkey->connectFunction(2,"setNextCell()");
+    hotkey->connectFunction(3,"setPrevRecord()");
+    hotkey->connectFunction(4,"setNextRecord()");
     winRecord->show();
     QApplication::processEvents();
     hotkey->beginHotkeys();
@@ -239,12 +280,10 @@ void NerdMain::stop(){
 
 void NerdMain::toggleMenu(bool tf){
     if(tf){
-       ui->menuSkip->setEnabled(true);
        ui->menuStop->setEnabled(true);
        ui->menuStart->setEnabled(false);
        ui->btnStart->setText("Stop");
     } else {
-        ui->menuSkip->setEnabled(false);
         ui->menuStop->setEnabled(false);
         ui->menuStart->setEnabled(true);
         ui->btnStart->setText("Start");

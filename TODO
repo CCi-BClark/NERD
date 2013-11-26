@@ -1,14 +1,16 @@
 TODO
 
-- Set the position of "Current Record Tracker" window to automaticly place in top-right corner.
+-(done) Set the position of "Current Record Tracker" window to automaticly place in top-left corner.
 
-- Fix exit error due to global hotkey loop.
+-(done) Make "Current Record Tracker" stay on top of all windows.
+
+-(done) Fix exit error due to global hotkey loop.
+
+-(done) Fix element layout so it runs proper view on cross platforms(i.e. windows, linux, mac)
+
+-(done) Add ability for parent with data table to resize when file is loaded.
 
 - Fix when parent window closes other windows stay open.
-
-- Fix element layout so it runs proper view on cross platforms(i.e. windows, linux, mac)
-
-- Add ability for parent with data table to resize when file is loaded.
 
 - Make "Current Record Tracker" window size to the amount of header cells, don't allow it to be larger then screen height.
 

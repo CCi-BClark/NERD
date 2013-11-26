@@ -9,7 +9,11 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>N.E.R.D. by CCi</string>
+   <string>NERD</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="res.qrc">
+    <normaloff>:/img/cci-small.png</normaloff>:/img/cci-small.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -17,6 +21,12 @@
      <layout class="QHBoxLayout" name="horizontalLayout_6">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QGroupBox" name="grpFileInProgress">
           <property name="minimumSize">
@@ -70,13 +80,16 @@
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <property name="spacing">
+         <number>0</number>
+        </property>
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <property name="topMargin">
-           <number>9</number>
+           <number>0</number>
           </property>
           <property name="bottomMargin">
-           <number>5</number>
+           <number>9</number>
           </property>
          </layout>
         </item>
@@ -134,7 +147,7 @@
          <widget class="QPushButton" name="btnNext">
           <property name="maximumSize">
            <size>
-            <width>75</width>
+            <width>30</width>
             <height>16777215</height>
            </size>
           </property>
@@ -142,7 +155,7 @@
            <string notr="true"/>
           </property>
           <property name="text">
-           <string>Next</string>
+           <string>&lt;&lt;</string>
           </property>
           <property name="flat">
            <bool>false</bool>
@@ -150,10 +163,36 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="btnPrevCell">
+          <property name="maximumSize">
+           <size>
+            <width>30</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>&lt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnNextCell">
+          <property name="maximumSize">
+           <size>
+            <width>30</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="btnPrev">
           <property name="maximumSize">
            <size>
-            <width>75</width>
+            <width>30</width>
             <height>16777215</height>
            </size>
           </property>
@@ -161,7 +200,7 @@
            <string notr="true"/>
           </property>
           <property name="text">
-           <string>Previous</string>
+           <string>&gt;&gt;</string>
           </property>
           <property name="flat">
            <bool>false</bool>
@@ -225,7 +264,7 @@
    </widget>
    <widget class="QMenu" name="menuRun">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="title">
      <string>Run</string>
@@ -233,7 +272,11 @@
     <addaction name="menuStart"/>
     <addaction name="menuStop"/>
     <addaction name="separator"/>
-    <addaction name="menuSkip"/>
+    <addaction name="menuNextRecord"/>
+    <addaction name="menuPrevRecord"/>
+    <addaction name="separator"/>
+    <addaction name="menuNextCell"/>
+    <addaction name="menuPrevCell"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -274,12 +317,12 @@
     <string>Stop</string>
    </property>
   </action>
-  <action name="menuSkip">
+  <action name="menuNextRecord">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="text">
-    <string>Skip Record</string>
+    <string>Next Record</string>
    </property>
   </action>
   <action name="menuDocs">
@@ -297,8 +340,31 @@
     <string>CCi Homepage</string>
    </property>
   </action>
+  <action name="menuPrevRecord">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Prev Record</string>
+   </property>
+  </action>
+  <action name="menuNextCell">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Next Cell</string>
+   </property>
+  </action>
+  <action name="menuPrevCell">
+   <property name="text">
+    <string>Prev Cell</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections/>
 </ui>

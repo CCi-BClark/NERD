@@ -20,6 +20,11 @@ void SystemHotkey::removeKey(int keyID){
     }
 }
 
+int SystemHotkey::getHotkey(int position){
+    std::pair<int, std::string> val = hotkeys.at(position);
+    return val.first;
+}
+
 void SystemHotkey::addKey(int keyID, UINT holdKey, char charKey){
     RegisterHotKey(NULL,keyID,holdKey | MOD_NOREPEAT,charKey);
 }
@@ -52,5 +57,5 @@ void SystemHotkey::listen(){
 }
 
 void SystemHotkey::run(int pos){
-    qDebug() << "Running function on wParam in position " << pos;
+    emit runHotkey(pos);
 }
