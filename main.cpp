@@ -9,8 +9,8 @@
 
 int main(int argc, char *argv[])
 {
-    RegisterHotKey(NULL,1,MOD_CONTROL | MOD_NOREPEAT,'X');
-    RegisterHotKey(NULL,2,MOD_ALT | MOD_NOREPEAT,'B');
+    //RegisterHotKey(NULL,1,MOD_CONTROL | MOD_NOREPEAT,'X');
+    //RegisterHotKey(NULL,2,MOD_ALT | MOD_NOREPEAT,'B');
 
     QApplication a(argc, argv);
     NerdMain w;

@@ -20,13 +20,15 @@ SOURCES += main.cpp\
         nerdmain.cpp \
     recordwindow.cpp \
     aboutwindow.cpp \
-    stdafx.cpp
+    stdafx.cpp \
+    systemhotkey.cpp
 
 HEADERS  += nerdmain.h \
     recordwindow.h \
     aboutwindow.h \
     stdafx.h \
-    targetver.h
+    targetver.h \
+    systemhotkey.h
 
 FORMS    += nerdmain.ui \
     recordwindow.ui \
@@ -35,7 +37,8 @@ FORMS    += nerdmain.ui \
 OTHER_FILES += \
     img/cci-horizontal-black-large.png \
     img/arrowright.gif \
-    img/arrowdown.gif
+    img/arrowdown.gif \
+    TODO
 
 RESOURCES += \
     res.qrc

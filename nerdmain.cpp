@@ -6,20 +6,22 @@
 #include "ui_nerdmain.h"
 #include <windows.h>
 
+
 NerdMain::NerdMain(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::NerdMain){
     ui->setupUi(this);
     winRecord = new RecordWindow;
+    hotkey = new SystemHotkey;
     toggleDataElem(false);
 
     connect(ui->menuAbout,SIGNAL(triggered()),this,SLOT(about()));
     connect(ui->btnOpen,SIGNAL(clicked()),this,SLOT(open()));
     connect(ui->menuOpen,SIGNAL(triggered()),this,SLOT(open()));
     connect(ui->menuExit,SIGNAL(triggered()),this,SLOT(close()));
-    connect(ui->btnStart,SIGNAL(clicked()),this,SLOT(start()));
+    connect(ui->btnStart,SIGNAL(clicked()),this,SLOT(startStop()));
     connect(ui->menuHomepage,SIGNAL(triggered()),this,SLOT(openHomepage()));
-    connect(winRecord,SIGNAL(finished(int)),this,SLOT(toggleStartStop()));
+    connect(winRecord,SIGNAL(finished(int)),this,SLOT(startStop()));
     connect(ui->tableData, SIGNAL(cellEntered(int,int)),this,SLOT(setCurrentRecord(int)));
     connect(ui->tableData, SIGNAL(cellDoubleClicked(int,int)),this,SLOT(setCurrentCell(int,int)));
     connect(ui->btnNext,SIGNAL(clicked()),this,SLOT(setNextRecord()));
@@ -36,10 +38,23 @@ NerdMain::NerdMain(QWidget *parent) :
     ui->btnPrev->setShortcut(Qt::ALT + Qt::Key_F);
 }
 
+// (Start) Help Menu functions
+void NerdMain::about(){
+    AboutWindow *winAbout;
+    winAbout = new AboutWindow;
+    winAbout->show();
+}
+
+void NerdMain::openHomepage(){
+    QDesktopServices::openUrl(QUrl("http://www.cci.edu", QUrl::TolerantMode));
+}
+// (Stop)
+
 NerdMain::~NerdMain(){
     delete ui;
 }
 
+// (Start) Init data and elements.
 void NerdMain::setFileLabel(QString label){
     ui->labCurrent->setText(label);
 }
@@ -109,20 +124,9 @@ void NerdMain::toggleDataElem(bool isData){
         ui->menuRun->setEnabled(false);
     }
 }
+// (Stop)
 
-void NerdMain::toggleStartStop(){
-    bool menu = ui->menuStart->isEnabled();
-    if(menu){
-       ui->menuSkip->setEnabled(true);
-       ui->menuStop->setEnabled(true);
-       ui->menuStart->setEnabled(false);
-    } else {
-        ui->menuSkip->setEnabled(false);
-        ui->menuStop->setEnabled(false);
-        ui->menuStart->setEnabled(true);
-    }
-}
-
+// (Start) Navigate cell content functions.
 void NerdMain::setCurrentRecord(int row){
     ui->tableData->selectRow(row);
     ui->tableData->setCurrentCell(row,1);
@@ -199,32 +203,48 @@ void NerdMain::setPrevCell(){
         }
     }
 }
+// (Stop)
 
-void NerdMain::about(){
-    AboutWindow *winAbout;
-    winAbout = new AboutWindow;
-
-    winAbout->show();
-}
-
-void NerdMain::openHomepage(){
-    QDesktopServices::openUrl(QUrl("http://www.cci.edu", QUrl::TolerantMode));
+// (Start) Start/stop sequence functions.
+void NerdMain::startStop(){
+    bool menu = ui->menuStart->isEnabled();
+    if(!menu){
+        stop();
+    } else {
+        start();
+    }
 }
 
 void NerdMain::start(){
-    toggleStartStop();
+    toggleMenu(true);
+    hotkey->addKey(3, MOD_CONTROL, 'A');
+    hotkey->addKey(4, MOD_ALT, 'B');
+    hotkey->connectFunction(3,"setNextCell()");
+    hotkey->connectFunction(4,"setPrevCell()");
     winRecord->show();
-
-    // Start system wide hotkey listener
     QApplication::processEvents();
-    MSG msg;
-    while(GetMessage(&msg,NULL,0,0)){
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
-        if (msg.message == WM_HOTKEY){
-            if (msg.wParam == 1) setNextCell();
-            if (msg.wParam == 2) setPrevCell();
-        }
-    }// Stop
+    hotkey->beginHotkeys();
 }
 
+void NerdMain::stop(){
+    toggleMenu(false);
+    hotkey->removeKey(3);
+    hotkey->removeKey(4);
+    winRecord->hide();
+    hotkey->haltHotkeys();
+}
+
+void NerdMain::toggleMenu(bool tf){
+    if(tf){
+       ui->menuSkip->setEnabled(true);
+       ui->menuStop->setEnabled(true);
+       ui->menuStart->setEnabled(false);
+       ui->btnStart->setText("Stop");
+    } else {
+        ui->menuSkip->setEnabled(false);
+        ui->menuStop->setEnabled(false);
+        ui->menuStart->setEnabled(true);
+        ui->btnStart->setText("Start");
+    }
+}
+// (Stop)

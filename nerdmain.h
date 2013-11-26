@@ -17,6 +17,7 @@
 #include "xlsxcellrange.h"
 #include "xlsxformat.h"
 #include "xlsxdatavalidation.h"
+#include "systemhotkey.h"
 
 namespace Ui {
 class NerdMain;
@@ -39,9 +40,11 @@ protected:
 
 protected slots:
     void open(void);                // Process open file request.
+    void startStop(void);               // Process start navigation request.
     void start(void);               // Process start navigation request.
+    void stop(void);
     void toggleDataElem(bool isData);// Hide/show data table.
-    void toggleStartStop();         // Start/stop data navigation.
+    void toggleMenu(bool tf);         // Start/stop data navigation.
     void setCurrentRecord(int row); // Set current record.
     void setCurrentCell(int row, int col);// Set current cell.
     void setNextRecord();           // Goto next record.
@@ -59,6 +62,7 @@ private:
     QFileInfo fileInfo;
     QXlsx::Document *dataStore;
     QXlsx::CellRange *range;
+    SystemHotkey *hotkey;
 };
 
 #endif // NERDMAIN_H
