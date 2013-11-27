@@ -10,6 +10,10 @@ TODO
 
 -(done) Add ability for parent with data table to resize when file is loaded.
 
+-(done) Fix : formula for cell shows when value of formula should be displayed in QTableWidget.
+
+-(done) Add next/prev cell buttons and menu items.
+
 - Fix when parent window closes other windows stay open.
 
 - Put data table and functions to it own widget class.

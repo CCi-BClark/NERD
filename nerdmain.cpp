@@ -24,6 +24,8 @@ NerdMain::NerdMain(QWidget *parent) :
     connect(ui->menuExit,SIGNAL(triggered()),this,SLOT(close()));
 
     // Record setup
+    connect(ui->menuStart,SIGNAL(triggered()),this,SLOT(startStop()));
+    connect(ui->menuStop,SIGNAL(triggered()),this,SLOT(startStop()));
     connect(ui->btnStart,SIGNAL(clicked()),this,SLOT(startStop()));
     connect(winRecord,SIGNAL(finished(int)),this,SLOT(startStop()));
     connect(winRecord,SIGNAL(finished(int)),hotkey,SLOT(haltHotkeys()));
@@ -31,8 +33,8 @@ NerdMain::NerdMain(QWidget *parent) :
     connect(ui->tableData, SIGNAL(cellDoubleClicked(int,int)),this,SLOT(setCurrentCell(int,int)));
 
     // Record Navigation
-    connect(ui->btnNext,SIGNAL(clicked()),this,SLOT(setPrevRecord()));
-    connect(ui->btnPrev,SIGNAL(clicked()),this,SLOT(setNextRecord()));
+    connect(ui->btnNext,SIGNAL(clicked()),this,SLOT(setNextRecord()));
+    connect(ui->btnPrev,SIGNAL(clicked()),this,SLOT(setPrevRecord()));
 
     connect(ui->btnNextCell,SIGNAL(clicked()),this,SLOT(setNextCell()));
     connect(ui->btnPrevCell,SIGNAL(clicked()),this,SLOT(setPrevCell()));
@@ -105,8 +107,11 @@ void NerdMain::setTable(){
     ui->tableData->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->tableData->setShowGrid(false);
     for(int i = 1; i <= range->rowCount()-1; i++){
-        for(int k = 1; k <= range->columnCount();k++){
-            ui->tableData->setItem(i-1,k-1,new QTableWidgetItem(dataStore->cellAt(i+1,k)->value().toString()));
+        for(int k = 0; k <= range->columnCount()-1;k++){
+            QString val;
+            if(dataStore->cellAt(i+1,k+1) == NULL) {val.append("");}
+            else {val.append(dataStore->cellAt(i+1,k+1)->value().toString());}
+            ui->tableData->setItem(i-1,k,new QTableWidgetItem(val,0));
         }
     }
 }
@@ -129,6 +134,8 @@ void NerdMain::toggleDataElem(bool isData){
         ui->tableData->setHidden(false);
         ui->btnOpen->setText("Change File");
         ui->btnStart->setHidden(false);
+        ui->btnPrev->setEnabled(false);
+        ui->btnPrevCell->setEnabled(false);
         this->resize(400,400);
         //this->setSizePolicy(QSizePolicy::verticalPolicy());
     } else {
@@ -159,7 +166,6 @@ void NerdMain::setCurrentRecord(int row){
         ui->btnPrev->setEnabled(true);
         ui->btnPrevCell->setEnabled(true);
         ui->btnNext->setEnabled(false);
-        ui->btnNextCell->setEnabled(false);
     }
 }
 
@@ -185,7 +191,7 @@ void NerdMain::setNextRecord(){
 
 void NerdMain::setPrevRecord(){
     int current = winRecord->getRecordNum()-1;
-    if (current >= 0){
+    if (current > 0){
         if (current == 1) {
             ui->btnPrev->setEnabled(false);
             ui->btnPrevCell->setEnabled(false);
@@ -203,11 +209,16 @@ void NerdMain::setNextCell(){
     int currentRow = winRecord->getRecordNum()-1;
 
     if(currentCol < range->columnCount()-1) {
+        if (!ui->btnPrevCell->isEnabled()){
+            ui->btnPrevCell->setEnabled(true);
+        }
+        if (!ui->btnNext->isEnabled()){
+            ui->btnNextCell->setEnabled(false);
+        }
         setCurrentCell(currentRow, currentCol+1);
     } else {
         if(!ui->btnPrev->isEnabled()){
             ui->btnPrev->setEnabled(true);
-            ui->btnPrevCell->setEnabled(true);
         }
         if(currentRow < range->rowCount()-2){
             setNextRecord();
@@ -220,13 +231,24 @@ void NerdMain::setPrevCell(){
     int currentRow = winRecord->getRecordNum()-1;
 
     if (currentCol > 0){
+        if (!ui->btnNextCell->isEnabled()){
+            ui->btnNextCell->setEnabled(true);
+        }
+        if (!ui->btnPrev->isEnabled()) {
+            ui->btnPrevCell->setEnabled(false);
+        }
         setCurrentCell(currentRow,currentCol-1);
     } else {
         if(!ui->btnNext->isEnabled()){
-            ui->btnNextCell->setEnabled(true);
+            ui->btnNext->setEnabled(true);
         }
         if (currentRow > 0) {
+            if(currentRow == 1){
+                ui->btnPrev->setEnabled(false);
+            }
             setCurrentCell(currentRow-1, range->columnCount()-1);
+        } else {
+            ui->btnPrevCell->setEnabled(false);
         }
     }
 }
