@@ -31,12 +31,15 @@ NerdMain::NerdMain(QWidget *parent) :
     connect(ui->tableData, SIGNAL(cellDoubleClicked(int,int)),this,SLOT(setCurrentCell(int,int)));
 
     // Record Navigation
-    connect(ui->btnNext,SIGNAL(clicked()),this,SLOT(setNextRecord()));
-    connect(ui->btnPrev,SIGNAL(clicked()),this,SLOT(setPrevRecord()));
+    connect(ui->btnNext,SIGNAL(clicked()),this,SLOT(setPrevRecord()));
+    connect(ui->btnPrev,SIGNAL(clicked()),this,SLOT(setNextRecord()));
+
     connect(ui->btnNextCell,SIGNAL(clicked()),this,SLOT(setNextCell()));
     connect(ui->btnPrevCell,SIGNAL(clicked()),this,SLOT(setPrevCell()));
+
     connect(ui->menuNextRecord,SIGNAL(triggered()),this,SLOT(setNextRecord()));
     connect(ui->menuPrevRecord,SIGNAL(triggered()),this,SLOT(setPrevRecord()));
+
     connect(ui->menuNextCell,SIGNAL(triggered()),this,SLOT(setNextCell()));
     connect(ui->menuPrevCell,SIGNAL(triggered()),this,SLOT(setPrevCell()));
     connect(hotkey, SIGNAL(runHotkey(int)),this,SLOT(hotkeyPressed(int)));
@@ -119,7 +122,6 @@ void NerdMain::open(){
 }
 void NerdMain::toggleDataElem(bool isData){
     if(isData){
-        ui->btnPrev->setEnabled(false);
         ui->btnPrev->setHidden(false);
         ui->btnNext->setHidden(false);
         ui->btnPrevCell->setHidden(false);
@@ -128,10 +130,8 @@ void NerdMain::toggleDataElem(bool isData){
         ui->btnOpen->setText("Change File");
         ui->btnStart->setHidden(false);
         this->resize(400,400);
-        ui->menuRun->setEnabled(true);
         //this->setSizePolicy(QSizePolicy::verticalPolicy());
     } else {
-        ui->btnPrev->setEnabled(false);
         ui->btnPrev->setHidden(true);
         ui->btnNext->setHidden(true);
         ui->btnPrevCell->setHidden(true);
@@ -140,7 +140,6 @@ void NerdMain::toggleDataElem(bool isData){
         ui->btnOpen->setText("Open File");
         ui->btnStart->setHidden(true);
         this->resize(400, 60);
-        ui->menuRun->setEnabled(false);
         this->sizePolicy().setHorizontalPolicy(QSizePolicy::Minimum);
     }
 }
@@ -153,10 +152,14 @@ void NerdMain::setCurrentRecord(int row){
     winRecord->setRecordNum(row+1);
     if(0 == row){
         ui->btnPrev->setEnabled(false);
+        ui->btnPrevCell->setEnabled(false);
         ui->btnNext->setEnabled(true);
+        ui->btnNextCell->setEnabled(true);
     } else if (range->rowCount()-2 == row){
         ui->btnPrev->setEnabled(true);
+        ui->btnPrevCell->setEnabled(true);
         ui->btnNext->setEnabled(false);
+        ui->btnNextCell->setEnabled(false);
     }
 }
 
@@ -176,6 +179,7 @@ void NerdMain::setNextRecord(){
     }
     if(!ui->btnPrev->isEnabled()){
         ui->btnPrev->setEnabled(true);
+        ui->btnPrevCell->setEnabled(true);
     }
 }
 
@@ -184,11 +188,13 @@ void NerdMain::setPrevRecord(){
     if (current >= 0){
         if (current == 1) {
             ui->btnPrev->setEnabled(false);
+            ui->btnPrevCell->setEnabled(false);
         }
         setCurrentRecord(current-1);
     }
     if(!ui->btnNext->isEnabled()){
         ui->btnNext->setEnabled(true);
+        ui->btnNextCell->setEnabled(true);
     }
 }
 
@@ -201,6 +207,7 @@ void NerdMain::setNextCell(){
     } else {
         if(!ui->btnPrev->isEnabled()){
             ui->btnPrev->setEnabled(true);
+            ui->btnPrevCell->setEnabled(true);
         }
         if(currentRow < range->rowCount()-2){
             setNextRecord();
@@ -216,7 +223,7 @@ void NerdMain::setPrevCell(){
         setCurrentCell(currentRow,currentCol-1);
     } else {
         if(!ui->btnNext->isEnabled()){
-            ui->btnNext->setEnabled(true);
+            ui->btnNextCell->setEnabled(true);
         }
         if (currentRow > 0) {
             setCurrentCell(currentRow-1, range->columnCount()-1);

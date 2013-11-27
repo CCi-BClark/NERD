@@ -2,6 +2,14 @@
 <ui version="4.0">
  <class>NerdMain</class>
  <widget class="QMainWindow" name="NerdMain">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>305</width>
+    <height>319</height>
+   </rect>
+  </property>
   <property name="sizePolicy">
    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
     <horstretch>0</horstretch>
@@ -144,7 +152,7 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QPushButton" name="btnNext">
+         <widget class="QPushButton" name="btnPrev">
           <property name="maximumSize">
            <size>
             <width>30</width>
@@ -189,7 +197,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="btnPrev">
+         <widget class="QPushButton" name="btnNext">
           <property name="maximumSize">
            <size>
             <width>30</width>

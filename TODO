@@ -12,6 +12,8 @@ TODO
 
 - Fix when parent window closes other windows stay open.
 
+- Put data table and functions to it own widget class.
+
 - Make "Current Record Tracker" window size to the amount of header cells, don't allow it to be larger then screen height.
 
 - Test on Mac, Linux, WinXp, Win8

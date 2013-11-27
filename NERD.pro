@@ -10,7 +10,7 @@ include(src/src/xlsx/qtxlsx.pri)
 
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += widgets
 
 TARGET = NERD
 TEMPLATE = app
@@ -38,7 +38,10 @@ OTHER_FILES += \
     img/cci-horizontal-black-large.png \
     img/arrowright.gif \
     img/arrowdown.gif \
-    TODO
+    TODO \
+    res.rc
 
 RESOURCES += \
     res.qrc
+
+RC_FILE = res.rc
