@@ -106,7 +106,7 @@ void NerdMain::setTable(){
     ui->tableData->setShowGrid(false);
     for(int i = 1; i <= range->rowCount()-1; i++){
         for(int k = 1; k <= range->columnCount();k++){
-            ui->tableData->setItem(i-1,k-1,new QTableWidgetItem(dataStore->read(i+1,k).toString()));
+            ui->tableData->setItem(i-1,k-1,new QTableWidgetItem(dataStore->cellAt(i+1,k)->value().toString()));
         }
     }
 }

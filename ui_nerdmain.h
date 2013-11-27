@@ -56,10 +56,10 @@ public:
     QVBoxLayout *verticalLayout;
     QTableWidget *tableData;
     QHBoxLayout *horizontalLayout_2;
-    QPushButton *btnNext;
+    QPushButton *btnPrev;
     QPushButton *btnPrevCell;
     QPushButton *btnNextCell;
-    QPushButton *btnPrev;
+    QPushButton *btnNext;
     QSpacerItem *horizontalSpacer;
     QPushButton *btnStart;
     QMenuBar *menuBar;
@@ -71,6 +71,7 @@ public:
     {
         if (NerdMain->objectName().isEmpty())
             NerdMain->setObjectName(QStringLiteral("NerdMain"));
+        NerdMain->resize(305, 319);
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -190,13 +191,13 @@ public:
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        btnNext = new QPushButton(centralWidget);
-        btnNext->setObjectName(QStringLiteral("btnNext"));
-        btnNext->setMaximumSize(QSize(30, 16777215));
-        btnNext->setStyleSheet(QStringLiteral(""));
-        btnNext->setFlat(false);
+        btnPrev = new QPushButton(centralWidget);
+        btnPrev->setObjectName(QStringLiteral("btnPrev"));
+        btnPrev->setMaximumSize(QSize(30, 16777215));
+        btnPrev->setStyleSheet(QStringLiteral(""));
+        btnPrev->setFlat(false);
 
-        horizontalLayout_2->addWidget(btnNext);
+        horizontalLayout_2->addWidget(btnPrev);
 
         btnPrevCell = new QPushButton(centralWidget);
         btnPrevCell->setObjectName(QStringLiteral("btnPrevCell"));
@@ -210,13 +211,13 @@ public:
 
         horizontalLayout_2->addWidget(btnNextCell);
 
-        btnPrev = new QPushButton(centralWidget);
-        btnPrev->setObjectName(QStringLiteral("btnPrev"));
-        btnPrev->setMaximumSize(QSize(30, 16777215));
-        btnPrev->setStyleSheet(QStringLiteral(""));
-        btnPrev->setFlat(false);
+        btnNext = new QPushButton(centralWidget);
+        btnNext->setObjectName(QStringLiteral("btnNext"));
+        btnNext->setMaximumSize(QSize(30, 16777215));
+        btnNext->setStyleSheet(QStringLiteral(""));
+        btnNext->setFlat(false);
 
-        horizontalLayout_2->addWidget(btnPrev);
+        horizontalLayout_2->addWidget(btnNext);
 
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -290,10 +291,10 @@ public:
         grpFileInProgress->setTitle(QApplication::translate("NerdMain", "File In Process", 0));
         labCurrent->setText(QApplication::translate("NerdMain", "None", 0));
         btnOpen->setText(QApplication::translate("NerdMain", "Open File", 0));
-        btnNext->setText(QApplication::translate("NerdMain", "<<", 0));
+        btnPrev->setText(QApplication::translate("NerdMain", "<<", 0));
         btnPrevCell->setText(QApplication::translate("NerdMain", "<", 0));
         btnNextCell->setText(QApplication::translate("NerdMain", ">", 0));
-        btnPrev->setText(QApplication::translate("NerdMain", ">>", 0));
+        btnNext->setText(QApplication::translate("NerdMain", ">>", 0));
         btnStart->setText(QApplication::translate("NerdMain", "Start", 0));
         menuFile->setTitle(QApplication::translate("NerdMain", "File", 0));
         menuRun->setTitle(QApplication::translate("NerdMain", "Run", 0));
