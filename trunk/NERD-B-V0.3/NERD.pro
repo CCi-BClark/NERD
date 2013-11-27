@@ -21,18 +21,21 @@ SOURCES += main.cpp\
     recordwindow.cpp \
     aboutwindow.cpp \
     stdafx.cpp \
-    systemhotkey.cpp
+    systemhotkey.cpp \
+    spreadsheet.cpp
 
 HEADERS  += nerdmain.h \
     recordwindow.h \
     aboutwindow.h \
     stdafx.h \
     targetver.h \
-    systemhotkey.h
+    systemhotkey.h \
+    spreadsheet.h
 
 FORMS    += nerdmain.ui \
     recordwindow.ui \
-    aboutwindow.ui
+    aboutwindow.ui \
+    spreadsheet.ui
 
 OTHER_FILES += \
     img/cci-horizontal-black-large.png \

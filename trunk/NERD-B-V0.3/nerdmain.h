@@ -40,18 +40,19 @@ protected:
 
 protected slots:
     void open(void);                // Process open file request.
-    void startStop(void);               // Process start navigation request.
+    void startStop(void);           // Process start navigation request.
     void start(void);               // Process start navigation request.
     void stop(void);
     void toggleDataElem(bool isData);// Hide/show data table.
     void toggleMenu(bool tf);         // Start/stop data navigation.
-    void setCurrentRecord(int row); // Set current record.
-    void setCurrentCell(int row, int col);// Set current cell.
-    void setNextRecord();           // Goto next record.
-    void setPrevRecord();           // Goto previous record.
-    void setNextCell(void);         // Goto next cell(tab key)
-    void setPrevCell(void);         // Goto previous cell(Ctrl+Tab)
     void hotkeyPressed(int position);
+
+    //void setCurrentRecord(int row); // Set current record.
+    //void setCurrentCell(int row, int col);// Set current cell.
+    //void setNextRecord();           // Goto next record.
+    //void setPrevRecord();           // Goto previous record.
+    //void setNextCell(void);         // Goto next cell(tab key)
+    //void setPrevCell(void);         // Goto previous cell(Ctrl+Tab)
 
 private slots:
     void about(void);               // Show about window.
@@ -61,8 +62,8 @@ private:
     Ui::NerdMain *ui;
     RecordWindow *winRecord;
     QFileInfo fileInfo;
-    QXlsx::Document *dataStore;
-    QXlsx::CellRange *range;
+    //QXlsx::Document *dataStore;
+    //QXlsx::CellRange *range;
     SystemHotkey *hotkey;
 };
 

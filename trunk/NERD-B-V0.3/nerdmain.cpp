@@ -152,6 +152,7 @@ void NerdMain::toggleDataElem(bool isData){
 }
 // (Stop)
 
+/*
 // (Start) Navigate cell content functions.
 void NerdMain::setCurrentRecord(int row){
     ui->tableData->selectRow(row);
@@ -273,7 +274,7 @@ void NerdMain::hotkeyPressed(int position){
     }
 }
 // (Stop)
-
+*/
 // (Start) Start/stop sequence functions.
 void NerdMain::startStop(){
     bool menu = ui->menuStart->isEnabled();

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>305</width>
-    <height>319</height>
+    <width>339</width>
+    <height>88</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -137,120 +137,6 @@
       </item>
      </layout>
     </item>
-    <item>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <property name="sizeConstraint">
-       <enum>QLayout::SetNoConstraint</enum>
-      </property>
-      <item>
-       <widget class="QTableWidget" name="tableData">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QPushButton" name="btnPrev">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-          <property name="text">
-           <string>&lt;&lt;</string>
-          </property>
-          <property name="flat">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="btnPrevCell">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>&lt;</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="btnNextCell">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>&gt;</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="btnNext">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-          <property name="text">
-           <string>&gt;&gt;</string>
-          </property>
-          <property name="flat">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QPushButton" name="btnStart">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>100</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="layoutDirection">
-           <enum>Qt::LeftToRight</enum>
-          </property>
-          <property name="text">
-           <string>Start</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -258,7 +144,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>305</width>
+     <width>339</width>
      <height>21</height>
     </rect>
    </property>
