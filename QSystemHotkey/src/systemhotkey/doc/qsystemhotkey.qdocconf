@@ -1,0 +1,61 @@
+include($QT_INSTALL_DOCS/global/qt-html-templates-offline.qdocconf)
+include($QT_INSTALL_DOCS/global/qt-module-defaults.qdocconf)
+
+project                 = QSystemHotkey
+description             = Qt System Hotkey Reference Documentation
+url                     = http://www.cci.edu
+version                 = $QT_VERSION
+
+qhp.projects            = QSystemHotkey
+
+qhp.QSystemHotkey.file                = qtsh.qhp
+qhp.QSystemHotkey.namespace           = qtsh.$QT_VERSION_TAG
+qhp.QSystemHotkey.virtualFolder       = qtsh
+qhp.QSystemHotkey.indexTitle          = Qt System Hotkey
+qhp.QSystemHotkey.indexRoot           =
+
+qhp.QSystemHotkey.filterAttributes    = qtsh $QT_VERSION qtrefdoc
+qhp.QSystemHotkey.customFilters.Qt.name = QSystemHotkey $QT_VERSION
+qhp.QSystemHotkey.customFilters.Qt.filterAttributes = qtsh $QT_VERSION
+qhp.QSystemHotkey.subprojects         = overviews classes qmltypes examples
+qhp.QSystemHotkey.subprojects.overviews.title = Overview
+qhp.QSystemHotkey.subprojects.overviews.indexTitle = Qt System Hotkey
+qhp.QSystemHotkey.subprojects.overviews.selectors = fake:page,group,module
+qhp.QSystemHotkey.subprojects.classes.title = C++ Classes
+qhp.QSystemHotkey.subprojects.classes.indexTitle = Qt System Hotkey C++ Classes
+qhp.QSystemHotkey.subprojects.classes.selectors = class fake:headerfile
+qhp.QSystemHotkey.subprojects.classes.sortPages = true
+qhp.QSystemHotkey.subprojects.examples.title = Examples
+qhp.QSystemHotkey.subprojects.examples.indexTitle = Qt System Hotkey Examples
+qhp.QSystemHotkey.subprojects.examples.selectors = fake:example
+
+headerdirs  += .. 
+
+sourcedirs  += .. 
+
+exampledirs += ..
+
+# Specify the install path under QT_INSTALL_EXAMPLES
+examplesinstallpath = qtsh
+
+imagedirs   += images
+
+depends += qtcore qtdoc qtgui
+
+HTML.footer = \
+    "        </div>\n" \
+    "       </div>\n" \
+    "   </div>\n" \
+    "   </div>\n" \
+    "</div>\n" \
+    "<div class=\"footer\">\n" \
+    "        <div class=\"qt13a-copyright\" id=\"copyright\">\n" \
+    "            <div class=\"qt13a-container\">\n" \
+    "            <p>\n" \
+    "              Qt and their respective logos are trademarks of Digia Plc \n" \
+    "              in Finland and/or other countries worldwide. All other trademarks are property\n" \
+    "              of their respective owners. <a title=\"Privacy Policy\"\n" \
+    "              href=\"http://en.gitorious.org/privacy_policy/\">Privacy Policy</a></p>\n" \
+    "            </div>\n" \
+    "        </div>\n" \
+    "</div>\n" \

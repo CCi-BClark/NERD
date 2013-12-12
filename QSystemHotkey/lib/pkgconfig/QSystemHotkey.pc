@@ -1,0 +1,14 @@
+prefix=C:\Qt\Qt5.1.1\5.1.1\mingw48_32
+exec_prefix=${prefix}
+libdir=${prefix}\lib
+includedir=${prefix}\include
+
+
+Name: QSystemHotkey
+Description: QSystemHotkey module
+Version: 0.1.0
+Libs: -L${libdir} -lQSystemHotkey 
+Libs.private: -lglu32 -lopengl32 -lgdi32 -luser32 -LC:\Qt\Qt5.1.1\5.1.1\mingw48_32\lib -lQt5Guid -lQt5Cored .obj/debug_shared/QSystemHotkeyd_resource_res.o   
+Cflags: -I${includedir}/QSystemHotkey -I${includedir}
+Requires: Qt5Core Qt5Gui
+

@@ -1,8 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>img/cci-horizontal-black-large.png</file>
-        <file>img/arrowright.gif</file>
-        <file>img/arrowdown.gif</file>
         <file>img/cci-small.png</file>
         <file>ico.ico</file>
     </qresource>

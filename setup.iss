@@ -5,7 +5,7 @@
 #define MyAppVersion "0.1beta"
 #define MyAppPublisher "Corinthian Colleges Inc."
 #define MyAppURL "http://www.cci.edu/"
-#define MyAppExeName "NERD.exe"
+#define MyAppExeName "nerd.exe"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.

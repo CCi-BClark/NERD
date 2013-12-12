@@ -1,0 +1,16 @@
+QT.systemhotkey.VERSION = 0.1.0
+QT.systemhotkey.MAJOR_VERSION = 0
+QT.systemhotkey.MINOR_VERSION = 1
+QT.systemhotkey.PATCH_VERSION = 0
+QT.systemhotkey.name = QSystemHotkey
+QT.systemhotkey.libs = $$QT_MODULE_LIB_BASE
+QT.systemhotkey.private_includes = $$QT_MODULE_INCLUDE_BASE/QSystemHotkey/0.1.0 $$QT_MODULE_INCLUDE_BASE/QSystemHotkey/0.1.0/QSystemHotkey
+QT.systemhotkey.includes = $$QT_MODULE_INCLUDE_BASE $$QT_MODULE_INCLUDE_BASE/QSystemHotkey
+QT.systemhotkey.bins = $$QT_MODULE_BIN_BASE
+QT.systemhotkey.libexecs = $$QT_MODULE_LIBEXEC_BASE
+QT.systemhotkey.plugins = $$QT_MODULE_PLUGIN_BASE
+QT.systemhotkey.imports = $$QT_MODULE_IMPORT_BASE
+QT.systemhotkey.qml = $$QT_MODULE_QML_BASE
+QT.systemhotkey.depends = core gui
+QT.systemhotkey.DEFINES = QT_SYSTEMHOTKEY_LIB
+QT_MODULES += systemhotkey

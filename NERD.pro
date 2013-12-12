@@ -4,9 +4,11 @@
 #
 #-------------------------------------------------
 
-SUBDIRS = src
+SUBDIRS = QtXlsx \
+        QSystemHotkey
 
-include(src/src/xlsx/qtxlsx.pri)
+include(QtXlsx/src/xlsx/qtxlsx.pri)
+include(QSystemHotkey/src/systemhotkey/qsystemhotkey.pri)
 
 QT       += core gui
 
@@ -18,26 +20,34 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         nerdmain.cpp \
-    recordwindow.cpp \
-    aboutwindow.cpp \
-    stdafx.cpp \
-    systemhotkey.cpp
+    about.cpp \
+    currentrecord.cpp \
+    ssheet.cpp \
+    wbook.cpp \
+    parsecell.cpp \
+    parserecord.cpp \
+    parsefile.cpp \
+    parsesheet.cpp
 
 HEADERS  += nerdmain.h \
-    recordwindow.h \
-    aboutwindow.h \
-    stdafx.h \
-    targetver.h \
-    systemhotkey.h
+    about.h \
+    currentrecord.h \
+    ssheet.h \
+    wbook.h \
+    parsecell.h \
+    parserecord.h \
+    parsefile.h \
+    parsesheet.h
 
 FORMS    += nerdmain.ui \
-    recordwindow.ui \
-    aboutwindow.ui
+    about.ui \
+    currentrecord.ui \
+    btnparse.ui \
+    ssheet.ui \
+    wbook.ui
 
 OTHER_FILES += \
     img/cci-horizontal-black-large.png \
-    img/arrowright.gif \
-    img/arrowdown.gif \
     TODO \
     res.rc
 
