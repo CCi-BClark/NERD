@@ -8,7 +8,7 @@
 #include <about.h>
 #include <currentrecord.h>
 #include <qsystemhotkey.h>
-#include <parsefile.h>
+#include <wbook.h>
 
 namespace Ui {
 class NerdMain;
@@ -35,7 +35,7 @@ private slots:
 private:
     Ui::NerdMain *ui;
     QSystemHotkey *hotkey;
-    ParseFile *file;
+    Wbook *file;
     CurrentRecord *recordTracker;
     About *aboutWin;
 };

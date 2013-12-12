@@ -7,7 +7,7 @@
 SUBDIRS = QtXlsx \
         QSystemHotkey
 
-include(QtXlsx/src/xlsx/qtxlsx.pri)
+include(QtXlsx/xlsx/qtxlsx.pri)
 include(QSystemHotkey/src/systemhotkey/qsystemhotkey.pri)
 
 QT       += core gui
@@ -26,8 +26,8 @@ SOURCES += main.cpp\
     wbook.cpp \
     parsecell.cpp \
     parserecord.cpp \
-    parsefile.cpp \
-    parsesheet.cpp
+    parsesheet.cpp \
+    parsebook.cpp
 
 HEADERS  += nerdmain.h \
     about.h \
@@ -36,8 +36,8 @@ HEADERS  += nerdmain.h \
     wbook.h \
     parsecell.h \
     parserecord.h \
-    parsefile.h \
-    parsesheet.h
+    parsesheet.h \
+    parsebook.h
 
 FORMS    += nerdmain.ui \
     about.ui \

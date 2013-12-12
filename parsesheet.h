@@ -2,6 +2,7 @@
 #define PARSESHEET_H
 
 #include <QObject>
+#include <xlsxworksheet.h>
 
 class ParseSheet
 {
@@ -14,11 +15,16 @@ public slots:
     void setPrevSheet();
     void getCurrentRow(void);
     void getCurrentColumn(void);
+    int getColumnCount(void);
+    int getRowCount(void);
+    QString getValue(int row, int col);
+    void setData(QXlsx::Worksheet page);
 protected slots:
     void setCurrentSheet(int row);
 private:
     int currentR;
     int currentC;
+    QXlsx::Worksheet *sheet;
 };
 
 #endif // PARSESHEET_H
