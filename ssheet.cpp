@@ -9,10 +9,10 @@ Ssheet::~Ssheet(){
     delete ui;
 }
 
-void Ssheet::setData(ParseSheet sheet){
-    for(int i = 0; i < sheet.getRowCount(); i++){
-        for(int k = 0; k < sheet.getColumnCount(); k++){
-            ui->tableData->setItem(i,k,new QTableWidgetItem(sheet.getValue(i,k)));
+void Ssheet::setWidget(ParseSheet data){
+    for(int i = 1; i < data.getRowCount(); i++){
+        for(int k = 0; k < data.getColumnCount(); k++){
+            ui->tableData->setItem(i,k,new QTableWidgetItem(data.getValue(i,k)));
         }
     }
 }

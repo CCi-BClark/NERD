@@ -17,6 +17,8 @@ public slots:
     void getCurrentColumn(void);
     int getColumnCount(void);
     int getRowCount(void);
+
+    QString getTitle(void);
     QString getValue(int row, int col);
     void setData(QXlsx::Worksheet page);
 protected slots:

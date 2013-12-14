@@ -20,6 +20,10 @@ int ParseSheet::getRowCount(){
     return sheet->dimension().rowCount();
 }
 
+QString ParseSheet::getTitle(){
+    return sheet->sheetName();
+}
+
 QString ParseSheet::getValue(int row, int col){
     return sheet->cellAt(row,col)->value().toString();
 }

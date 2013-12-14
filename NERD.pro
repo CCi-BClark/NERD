@@ -27,7 +27,8 @@ SOURCES += main.cpp\
     parsecell.cpp \
     parserecord.cpp \
     parsesheet.cpp \
-    parsebook.cpp
+    parsebook.cpp \
+    fileopen.cpp
 
 HEADERS  += nerdmain.h \
     about.h \
@@ -37,14 +38,16 @@ HEADERS  += nerdmain.h \
     parsecell.h \
     parserecord.h \
     parsesheet.h \
-    parsebook.h
+    parsebook.h \
+    fileopen.h
 
 FORMS    += nerdmain.ui \
     about.ui \
     currentrecord.ui \
     btnparse.ui \
     ssheet.ui \
-    wbook.ui
+    wbook.ui \
+    fileopen.ui
 
 OTHER_FILES += \
     img/cci-horizontal-black-large.png \

@@ -2,6 +2,7 @@
 #define WBOOK_H
 
 #include "parsebook.h"
+#include "ssheet.h"
 #include "xlsxdocument.h"
 #include "xlsxcell.h"
 #include "xlsxcellrange.h"
@@ -20,10 +21,11 @@ class Wbook : public QWidget
 public:
     explicit Wbook(QWidget *parent = 0);
     ~Wbook();
+public slots:
     void setData(QFileInfo info);
+    QString getFileName(void);
 protected:
     void createTabs(void);
-    void createTab(QString title);
 
 private:
     Ui::Wbook *ui;

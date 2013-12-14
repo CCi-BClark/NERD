@@ -2,6 +2,7 @@
 #define SSHEET_H
 
 #include <QWidget>
+#include <QTableWidget>
 #include <vector>
 #include "parsesheet.h"
 
@@ -12,11 +13,10 @@ class Ssheet;
 class Ssheet : public QWidget
 {
     Q_OBJECT
-
 public:
     explicit Ssheet(QWidget *parent = 0);
     ~Ssheet();
-    void setData(ParseSheet sheet);
+    void setWidget(ParseSheet data);
 private:
     Ui::Ssheet *ui;
 };

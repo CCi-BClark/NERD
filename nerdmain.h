@@ -3,9 +3,11 @@
 
 #include <QMainWindow>
 #include <QFileDialog>
+#include <QVBoxLayout>
 #include <QDesktopServices>
 #include <QUrl>
 #include <about.h>
+#include <fileopen.h>
 #include <currentrecord.h>
 #include <qsystemhotkey.h>
 #include <wbook.h>
@@ -23,7 +25,8 @@ public:
     ~NerdMain();
 
 public slots:
-    void openFile();
+    void openFile(void);
+    void toggleLayout(int control);
 
 protected:
 
@@ -34,10 +37,12 @@ private slots:
 
 private:
     Ui::NerdMain *ui;
-    QSystemHotkey *hotkey;
     Wbook *file;
+    FileOpen *open;
     CurrentRecord *recordTracker;
     About *aboutWin;
+    QVBoxLayout *mainLayout;
+    QSystemHotkey *hotkey;
 };
 
 #endif // NERDMAIN_H
