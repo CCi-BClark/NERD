@@ -2,8 +2,9 @@
 #define PARSECELL_H
 
 #include <QObject>
+#include <parserecord.h>
 
-class ParseCell
+class ParseCell : public ParseRecord
 {
 public:
     ParseCell();

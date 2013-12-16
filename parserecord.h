@@ -2,8 +2,9 @@
 #define PARSERECORD_H
 
 #include <QObject>
+#include <parsesheet.h>
 
-class ParseRecord
+class ParseRecord : public ParseSheet
 {
 public:
     ParseRecord();

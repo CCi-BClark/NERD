@@ -14,8 +14,6 @@
 #include "xlsxcellrange.h"
 #include "xlsxformat.h"
 #include "xlsxdatavalidation.h"
-#include <vector>
-#include "parsesheet.h"
 
 class ParseBook
 {
@@ -25,14 +23,11 @@ public:
 
     int getSheetCount(void);
     void setData(QFileInfo open);
-    ParseSheet getSheet(int i);
     QString getFileTitle(void);
 protected:
     void createSheets(void);
 
 private:
-    ParseSheet *sheet;
-    std::vector<ParseSheet> sheets;
     QXlsx::Document *dataStore;
     QXlsx::CellRange *range;
     QFileInfo file;

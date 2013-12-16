@@ -38,7 +38,7 @@ void QSystemHotkey::listen(){
         DispatchMessage(&msg);
         if (msg.message == WM_HOTKEY){
             for (int i = 0; i < (int)hotkeys.size(); ++i) {
-                if (msg.wParam == (unsigned int)hotkeys.at(i)) run(i);
+                if (msg.wParam == (unsigned int)hotkeys.at(i)) run(msg.wParam);
             }
         }
     }

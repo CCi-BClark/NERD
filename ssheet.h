@@ -3,8 +3,6 @@
 
 #include <QWidget>
 #include <QTableWidget>
-#include <vector>
-#include "parsesheet.h"
 
 namespace Ui {
 class Ssheet;
@@ -16,7 +14,7 @@ class Ssheet : public QWidget
 public:
     explicit Ssheet(QWidget *parent = 0);
     ~Ssheet();
-    void setWidget(ParseSheet data);
+    void setSheet();
 private:
     Ui::Ssheet *ui;
 };

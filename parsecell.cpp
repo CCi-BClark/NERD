@@ -1,6 +1,7 @@
 #include "parsecell.h"
 
 ParseCell::ParseCell(){
+
 }
 
 ParseCell::~ParseCell(){

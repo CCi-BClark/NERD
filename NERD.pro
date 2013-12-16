@@ -28,7 +28,12 @@ SOURCES += main.cpp\
     parserecord.cpp \
     parsesheet.cpp \
     parsebook.cpp \
-    fileopen.cpp
+    fileopen.cpp \
+    excelmockwidget.cpp \
+    parseexcel.cpp \
+    navigate.cpp \
+    navigatebuttons.cpp \
+    systemfocuswidget.cpp
 
 HEADERS  += nerdmain.h \
     about.h \
@@ -39,7 +44,12 @@ HEADERS  += nerdmain.h \
     parserecord.h \
     parsesheet.h \
     parsebook.h \
-    fileopen.h
+    fileopen.h \
+    excelmockwidget.h \
+    parseexcel.h \
+    navigate.h \
+    navigatebuttons.h \
+    systemfocuswidget.h
 
 FORMS    += nerdmain.ui \
     about.ui \
@@ -47,7 +57,9 @@ FORMS    += nerdmain.ui \
     btnparse.ui \
     ssheet.ui \
     wbook.ui \
-    fileopen.ui
+    fileopen.ui \
+    navigatebuttons.ui \
+    systemfocuswidget.ui
 
 OTHER_FILES += \
     img/cci-horizontal-black-large.png \

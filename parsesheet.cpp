@@ -27,10 +27,10 @@ QString ParseSheet::getTitle(){
 QString ParseSheet::getValue(int row, int col){
     return sheet->cellAt(row,col)->value().toString();
 }
-
+/*
 void ParseSheet::setData(QXlsx::Worksheet page){
     sheet = new QXlsx::Worksheet(page);
 }
-
+*/
 void ParseSheet::setCurrentSheet(int row){
 }

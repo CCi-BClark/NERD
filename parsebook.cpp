@@ -21,20 +21,12 @@ void ParseBook::setData(QFileInfo open){
     createSheets();
 }
 
-ParseSheet ParseBook::getSheet(int i){
-    return sheets.at(i);
-}
-
 QString ParseBook::getFileTitle(){
     return file.fileName();
 }
 
 void ParseBook::createSheets(void){
     for(int i = 0; i < getSheetCount(); i++){
-        sheet = new ParseSheet;
         dataStore->setCurrentWorksheet(i);
-        sheet->setData(*dataStore->currentWorksheet());
-
-        sheets.push_back(*sheet);
     }
 }

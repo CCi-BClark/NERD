@@ -8,9 +8,7 @@
 #include <QUrl>
 #include <about.h>
 #include <fileopen.h>
-#include <currentrecord.h>
-#include <qsystemhotkey.h>
-#include <wbook.h>
+#include <navigate.h>
 
 namespace Ui {
 class NerdMain;
@@ -29,6 +27,7 @@ public slots:
     void toggleLayout(int control);
 
 protected:
+    void setSignSlot(void);
 
 protected slots:
 
@@ -37,12 +36,10 @@ private slots:
 
 private:
     Ui::NerdMain *ui;
-    Wbook *file;
+    Navigate *data;
     FileOpen *open;
-    CurrentRecord *recordTracker;
     About *aboutWin;
     QVBoxLayout *mainLayout;
-    QSystemHotkey *hotkey;
 };
 
 #endif // NERDMAIN_H

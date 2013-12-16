@@ -3,8 +3,9 @@
 
 #include <QObject>
 #include <xlsxworksheet.h>
+#include <parsebook.h>
 
-class ParseSheet
+class ParseSheet : public ParseBook
 {
 public:
     ParseSheet();
@@ -20,7 +21,7 @@ public slots:
 
     QString getTitle(void);
     QString getValue(int row, int col);
-    void setData(QXlsx::Worksheet page);
+//    void setData(QXlsx::Worksheet page);
 protected slots:
     void setCurrentSheet(int row);
 private:

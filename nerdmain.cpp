@@ -4,51 +4,42 @@
 
 NerdMain::NerdMain(QWidget *parent): QMainWindow(parent), ui(new Ui::NerdMain){
     ui->setupUi(this);//Set window ui
-    hotkey = new QSystemHotkey;
     mainLayout = new QVBoxLayout;
 
     // Init window widgets
     aboutWin = new About;
-    file = new Wbook;
+    data = new Navigate;
     open = new FileOpen;
-    recordTracker = new CurrentRecord;
 
     mainLayout->addWidget(open);
     ui->layout->addLayout(mainLayout);
 
-    // UIX open window signal/slots
-    connect(ui->menuAbout,SIGNAL(triggered()),aboutWin,SLOT(show()));
-    connect(ui->menuHomepage,SIGNAL(triggered()),this,SLOT(openHomepage()));
-    connect(open,SIGNAL(fileOpen()),this,SLOT(openFile()));
-    connect(ui->menuOpen,SIGNAL(triggered()),this,SLOT(openFile()));
-    connect(ui->menuExit,SIGNAL(triggered()),this,SLOT(close()));
+    setSignSlot();
 }
 
 NerdMain::~NerdMain(){
-    delete hotkey;
-    delete recordTracker;
     delete aboutWin;
-    delete file;
+    delete data;
     delete open;
     delete mainLayout;
 }
 
 void NerdMain::openFile(void){
-    QString name(file->getFileName());
+    QString name("");
     if(name != "") {
-        delete file;
-        file = new Wbook;
+        delete data;
+        data = new Navigate;
         open->btnToggle();
         openFile();
     } else {
-        file->setData(QFileDialog::getOpenFileName(this,QObject::tr("Open Excel File"), "/home/",QObject::tr("Excel Files (*.xlsx)")));
-        name.append(file->getFileName());
+        data->setDataFile(QFileDialog::getOpenFileName(this,QObject::tr("Open Excel File"), "/home/",QObject::tr("Excel Files (*.xlsx)")));
+        name.append("");
         if(name != NULL) {
             open->setFileName(name);
         } else {
             open->btnToggle();
-            if(!file->isHidden()){
-                file->hide();
+            if(!data->isHidden()){
+                data->hide();
             }
         }
         toggleLayout(open->isOpen());
@@ -59,15 +50,23 @@ void NerdMain::toggleLayout(int control){
     setMinimumSize(0,0);
     if (control){
         ui->menuRun->setEnabled(true);
-        mainLayout->addWidget(file);
-        file->show();
+        mainLayout->addWidget(data);
+        data->show();
     } else {
         ui->menuRun->setEnabled(false);
-        mainLayout->removeWidget(file);
-        file->hide();
+        mainLayout->removeWidget(data);
+        data->hide();
         resize(0, 0);
     }
     mainLayout->setSizeConstraint(QLayout::SetMinimumSize);
+}
+
+void NerdMain::setSignSlot(){
+    connect(ui->menuAbout,SIGNAL(triggered()),aboutWin,SLOT(show()));
+    connect(ui->menuHomepage,SIGNAL(triggered()),this,SLOT(openHomepage()));
+    connect(open,SIGNAL(fileOpen()),this,SLOT(openFile()));
+    connect(ui->menuOpen,SIGNAL(triggered()),this,SLOT(openFile()));
+    connect(ui->menuExit,SIGNAL(triggered()),this,SLOT(close()));
 }
 
 void NerdMain::openHomepage(){
