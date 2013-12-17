@@ -1,22 +1,33 @@
 #include "parserecord.h"
 
-ParseRecord::ParseRecord(){
+ParseRecord::ParseRecord() : ParseSheet(){
 }
 
 ParseRecord::~ParseRecord(){
 }
 
-void ParseRecord::selectRecord(int row){
+void ParseRecord::setNextRecord(void){
 }
 
-void ParseRecord::setCurrentRecord(int row){
+void ParseRecord::setPrevRecord(void){
 }
 
-void ParseRecord::setNextRecord(){
+int ParseRecord::getColumnCount(int index){
+    setCurrentWorksheet(index);
+    return dataStore->currentWorksheet()->dimension().columnCount();
 }
 
-void ParseRecord::setPrevRecord(){
+int ParseRecord::getRowCount(int index){
+    setCurrentWorksheet(index);
+    return dataStore->currentWorksheet()->dimension().rowCount();
 }
 
-void ParseRecord::getRecordCount(){
+QStringList ParseRecord::getRow(int index, int row){
+    setCurrentWorksheet(index);
+    QStringList list;
+    for(int i= 1;i <= getColumnCount(index);i++){
+        list << dataStore->read(row,i).toString();
+    }
+    return list;
 }
+

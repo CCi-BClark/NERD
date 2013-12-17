@@ -23,12 +23,13 @@ public:
 
     int getSheetCount(void);
     void setData(QFileInfo open);
+    void setCurrentWorksheet(int index);
     QString getFileTitle(void);
+    QString getSheetTitle(int index);
 protected:
-    void createSheets(void);
+    QXlsx::Document *dataStore;
 
 private:
-    QXlsx::Document *dataStore;
     QXlsx::CellRange *range;
     QFileInfo file;
 };

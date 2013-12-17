@@ -1,9 +1,28 @@
 #include "excelmockwidget.h"
 
-ExcelMockWidget::ExcelMockWidget(Wbook *parent) : Wbook(parent){
+ExcelMockWidget::ExcelMockWidget(QWidget *parent) : QWidget(parent) {
+    book = new Wbook;
+    QVBoxLayout *container;
+    container = new QVBoxLayout;
+    container->addWidget(book);
+    setLayout(container);
 }
 
-ExcelMockWidget::~ExcelMockWidget()
-{
+ExcelMockWidget::~ExcelMockWidget(){
+}
 
+void ExcelMockWidget::addCell(int row, int column, QVariant cell){
+    sheet->setCell(row,column,cell);
+}
+
+void ExcelMockWidget::addSheet(int index, QString title){
+    book->createTab(index, title, sheet);
+    //delete sheet;
+}
+
+void ExcelMockWidget::setSheetProperties(int rows, int columns, QStringList headers){
+    sheet = new Ssheet;
+    sheet->setSheetRowSpan(rows);
+    sheet->setSheetColumnSpan(columns);
+    sheet->setSheetHeaders(headers);
 }

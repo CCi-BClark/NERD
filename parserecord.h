@@ -10,12 +10,13 @@ public:
     ParseRecord();
     ~ParseRecord();
 public slots:
-    void selectRecord(int row);
-    void setNextRecord();
-    void setPrevRecord();
-    void getRecordCount(void);
+    void setNextRecord(void);
+    void setPrevRecord(void);
+    int getColumnCount(int index);
+    int getRowCount(int index);
+    QStringList getRow(int index, int row);
 protected slots:
-    void setCurrentRecord(int row);
+private:
 };
 
 #endif // PARSERECORD_H

@@ -33,7 +33,8 @@ SOURCES += main.cpp\
     parseexcel.cpp \
     navigate.cpp \
     navigatebuttons.cpp \
-    systemfocuswidget.cpp
+    systemfocuswidget.cpp \
+    widget.cpp
 
 HEADERS  += nerdmain.h \
     about.h \
@@ -49,17 +50,18 @@ HEADERS  += nerdmain.h \
     parseexcel.h \
     navigate.h \
     navigatebuttons.h \
-    systemfocuswidget.h
+    systemfocuswidget.h \
+    widget.h
 
 FORMS    += nerdmain.ui \
     about.ui \
     currentrecord.ui \
     btnparse.ui \
-    ssheet.ui \
     wbook.ui \
     fileopen.ui \
     navigatebuttons.ui \
-    systemfocuswidget.ui
+    systemfocuswidget.ui \
+    ssheet.ui
 
 OTHER_FILES += \
     img/cci-horizontal-black-large.png \

@@ -10,12 +10,15 @@ public:
     ParseCell();
     ~ParseCell();
 public slots:
-    void selectCell(int row, int col);
-    void setNextCell();
-    void setPrevCell();
+    void setNextCell(void);
+    void setPrevCell(void);
+    int getCurrentRow(void);
+    int getCurrentColumn(void);
+    QVariant getCell(int row, int column);
 protected slots:
-    void setCurrentCell(int row, int col);
 private:
+    int rowPos;
+    int columnPos;
 };
 
 #endif // PARSECELL_H

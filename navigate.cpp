@@ -8,12 +8,15 @@ Navigate::Navigate(QWidget *parent) : QWidget(parent){
 
     btnHContainer = new QHBoxLayout;
     viewVContainer = new QVBoxLayout;
+    QSpacerItem *spacer;
+    spacer = new QSpacerItem(40, 20, QSizePolicy::Expanding,QSizePolicy::Minimum);
 
     btnHContainer->addWidget(btnNavigation);
+    btnHContainer->addSpacerItem(spacer);
     btnHContainer->addWidget(btnControlState);
 
     viewVContainer->addWidget(excelView);
-    //viewVContainer->addWidget(btnHContainer);
+    viewVContainer->addItem(btnHContainer);
 
     setLayout(viewVContainer);
     setSignalSlot();
@@ -21,16 +24,27 @@ Navigate::Navigate(QWidget *parent) : QWidget(parent){
 
 Navigate::~Navigate(){
     delete excelView;
-    delete btnNavigation;
-    delete parser;
     delete btnControlState;
-    delete btnHContainer;
-    delete viewVContainer;
+    delete btnNavigation;
 }
 
 void Navigate::setDataFile(QFileInfo file){
+    int rows;
+    int columns;
     parser->setData(file);
-    excelView->createBook();
+    int count = parser->getSheetCount();
+    for (int i = 0; i < count; ++i) {
+        parser->setCurrentWorksheet(i);
+        rows = parser->getRowCount(i);
+        columns = parser->getColumnCount(i);
+        excelView->setSheetProperties(rows,columns,parser->getRow(i,1));
+        for (int r = 0; r < parser->getRowCount(i); ++r) {
+            for (int c = 0; c < parser->getColumnCount(i); ++c) {
+                excelView->addCell(r,c,parser->getCell(r,c));
+            }
+        }
+        excelView->addSheet(i,parser->getSheetTitle(i));
+    }
 }
 
 void Navigate::setNextCell(){

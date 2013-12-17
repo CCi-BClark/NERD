@@ -27,7 +27,7 @@ public slots:
     void toggleLayout(int control);
 
 protected:
-    void setSignSlot(void);
+    void setSignalSlot(void);
 
 protected slots:
 

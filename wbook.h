@@ -1,7 +1,6 @@
 #ifndef WBOOK_H
 #define WBOOK_H
 
-#include <ssheet.h>
 #include "xlsxdocument.h"
 #include "xlsxcell.h"
 #include "xlsxcellrange.h"
@@ -13,17 +12,15 @@ namespace Ui {
 class Wbook;
 }
 
-class Wbook : public QWidget
-{
+class Wbook : public QWidget{
     Q_OBJECT
 
 public:
     explicit Wbook(QWidget *parent = 0);
-    ~Wbook();
+    ~Wbook();    
+    void createTab(int index, QString title, QWidget *worksheet);
 public slots:
-    void createBook();
 protected:
-    void createTabs(void);
 
 private:
     Ui::Wbook *ui;

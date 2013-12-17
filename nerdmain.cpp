@@ -1,4 +1,3 @@
-#include <QDebug>
 #include "nerdmain.h"
 #include "ui_nerdmain.h"
 
@@ -14,7 +13,7 @@ NerdMain::NerdMain(QWidget *parent): QMainWindow(parent), ui(new Ui::NerdMain){
     mainLayout->addWidget(open);
     ui->layout->addLayout(mainLayout);
 
-    setSignSlot();
+    setSignalSlot();
 }
 
 NerdMain::~NerdMain(){
@@ -25,6 +24,10 @@ NerdMain::~NerdMain(){
 }
 
 void NerdMain::openFile(void){
+    data->setDataFile(QFileDialog::getOpenFileName(this,QObject::tr("Open Excel File"), "/home/",QObject::tr("Excel Files (*.xlsx)")));
+    toggleLayout(open->isOpen());
+    //COMEBACK AND REDOO LOAD FILE LOGIC DUE TO CHANGES IN OBJECT STRUCTURE!!!
+    /*
     QString name("");
     if(name != "") {
         delete data;
@@ -44,6 +47,7 @@ void NerdMain::openFile(void){
         }
         toggleLayout(open->isOpen());
     }
+    */
 }
 
 void NerdMain::toggleLayout(int control){
@@ -61,7 +65,7 @@ void NerdMain::toggleLayout(int control){
     mainLayout->setSizeConstraint(QLayout::SetMinimumSize);
 }
 
-void NerdMain::setSignSlot(){
+void NerdMain::setSignalSlot(){
     connect(ui->menuAbout,SIGNAL(triggered()),aboutWin,SLOT(show()));
     connect(ui->menuHomepage,SIGNAL(triggered()),this,SLOT(openHomepage()));
     connect(open,SIGNAL(fileOpen()),this,SLOT(openFile()));

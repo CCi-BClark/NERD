@@ -1,20 +1,25 @@
 #include "parsecell.h"
 
 ParseCell::ParseCell(){
-
 }
 
 ParseCell::~ParseCell(){
 }
 
-void ParseCell::selectCell(int row, int col){
+void ParseCell::setNextCell(void){
 }
 
-void ParseCell::setCurrentCell(int row, int col){
+void ParseCell::setPrevCell(void){
 }
 
-void ParseCell::setNextCell(){
+int ParseCell::getCurrentRow(void){
+    return rowPos;
 }
 
-void ParseCell::setPrevCell(){
+int ParseCell::getCurrentColumn(void){
+    return columnPos;
+}
+
+QVariant ParseCell::getCell(int row, int column){
+    return dataStore->read(row+1,column+1);
 }

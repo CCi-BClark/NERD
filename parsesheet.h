@@ -10,24 +10,14 @@ class ParseSheet : public ParseBook
 public:
     ParseSheet();
     ~ParseSheet();
+    void setNextSheet(void);
+    void setPrevSheet(void);
+    int sheetIndex(void);
 public slots:
-    void selectSheet(int row);
-    void setNextSheet();
-    void setPrevSheet();
-    void getCurrentRow(void);
-    void getCurrentColumn(void);
-    int getColumnCount(void);
-    int getRowCount(void);
 
-    QString getTitle(void);
-    QString getValue(int row, int col);
-//    void setData(QXlsx::Worksheet page);
 protected slots:
-    void setCurrentSheet(int row);
 private:
-    int currentR;
-    int currentC;
-    QXlsx::Worksheet *sheet;
+    int sheetPos;
 };
 
 #endif // PARSESHEET_H

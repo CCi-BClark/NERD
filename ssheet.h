@@ -2,19 +2,22 @@
 #define SSHEET_H
 
 #include <QWidget>
-#include <QTableWidget>
+#include <QTableWidgetItem>
 
 namespace Ui {
 class Ssheet;
 }
 
-class Ssheet : public QWidget
-{
+class Ssheet : public QWidget{
     Q_OBJECT
 public:
     explicit Ssheet(QWidget *parent = 0);
     ~Ssheet();
-    void setSheet();
+    void setSheetTitle(QString title);
+    void setSheetRowSpan(int n);
+    void setSheetColumnSpan(int n);
+    void setSheetHeaders(QStringList headers);
+    void setCell(int row, int column, QVariant cell);
 private:
     Ui::Ssheet *ui;
 };

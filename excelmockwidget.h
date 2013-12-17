@@ -1,19 +1,26 @@
 #ifndef EXCELMOCKWIDGET_H
 #define EXCELMOCKWIDGET_H
 
-#include <QWidget>
 #include <wbook.h>
+#include <ssheet.h>
+#include <QWidget>
+#include <QLayout>
 
-class ExcelMockWidget : public Wbook{
+class ExcelMockWidget : public QWidget{
     Q_OBJECT
 public:
-    explicit ExcelMockWidget(Wbook *parent = 0);
+    explicit ExcelMockWidget(QWidget *parent = 0);
     ~ExcelMockWidget();
+    void addCell(int row, int column, QVariant cell);
+    void addSheet(int index, QString title);
+    void setSheetProperties(int rows, int columns, QStringList headers);
 signals:
 
 public slots:
 
 private:
+    Wbook *book;
+    Ssheet *sheet;
 };
 
 #endif // EXCELMOCKWIDGET_H

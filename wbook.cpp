@@ -9,17 +9,7 @@ Wbook::~Wbook(){
     delete ui;
 }
 
-void Wbook::createBook(){
-    createTabs();
+void Wbook::createTab(int index, QString title, QWidget *worksheet){
+    ui->tabWidget->insertTab(index, worksheet, title);
 }
 
-void Wbook::createTabs(void){
-    /*
-    for(int i = 0;i < file->getSheetCount();i++){
-        Ssheet *sheet;
-        sheet = new Ssheet;
-        sheet->setSheet();
-        ui->tabWidget->insertTab(i,sheet,"");
-    }
-    */
-}
