@@ -37,10 +37,10 @@ void Navigate::setDataFile(QFileInfo file){
         parser->setCurrentWorksheet(i);
         rows = parser->getRowCount(i);
         columns = parser->getColumnCount(i);
-        excelView->setSheetProperties(rows,columns,parser->getRow(i,1));
-        for (int r = 0; r < parser->getRowCount(i); ++r) {
-            for (int c = 0; c < parser->getColumnCount(i); ++c) {
-                excelView->addCell(r,c,parser->getCell(r,c));
+        excelView->setSheetProperties(rows-1,columns,parser->getRow(i,1));
+        for (int r = 1; r < rows; ++r) {
+            for (int c = 0; c < columns; ++c) {
+                excelView->addCell(r,c,parser->getCell(r+1,c+1));
             }
         }
         excelView->addSheet(i,parser->getSheetTitle(i));

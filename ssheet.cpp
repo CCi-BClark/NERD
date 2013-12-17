@@ -23,7 +23,7 @@ void Ssheet::setSheetTitle(QString title){
 }
 
 void Ssheet::setSheetRowSpan(int n){
-    ui->table->setColumnCount(n);
+    ui->table->setRowCount(n);
 }
 
 void Ssheet::setSheetColumnSpan(int n){
@@ -35,7 +35,8 @@ void Ssheet::setSheetHeaders(QStringList headers){
 }
 
 void Ssheet::setCell(int row, int column, QVariant cell){
-    QTableWidgetItem *input = new QTableWidgetItem(cell.toString(),0);
-    ui->table->setItem(row,column,input);
+    QTableWidgetItem *input = new QTableWidgetItem;
+    input->setData(0,cell);
+    ui->table->setItem(row-1,column,input);
 }
 

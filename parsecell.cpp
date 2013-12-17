@@ -21,5 +21,10 @@ int ParseCell::getCurrentColumn(void){
 }
 
 QVariant ParseCell::getCell(int row, int column){
-    return dataStore->read(row+1,column+1);
+    QString val1(dataStore->read(row,column).toString());
+    QString val2(dataStore->cellAt(row,column)->value().toString());
+    QXlsx::Cell *val3(dataStore->cellAt(row,column));
+    QXlsx::Format val4(val3->format());
+
+    return val3->value();
 }

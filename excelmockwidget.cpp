@@ -22,7 +22,7 @@ void ExcelMockWidget::addSheet(int index, QString title){
 
 void ExcelMockWidget::setSheetProperties(int rows, int columns, QStringList headers){
     sheet = new Ssheet;
-    sheet->setSheetRowSpan(rows);
     sheet->setSheetColumnSpan(columns);
+    sheet->setSheetRowSpan(rows);
     sheet->setSheetHeaders(headers);
 }
