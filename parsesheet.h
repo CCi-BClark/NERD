@@ -13,6 +13,7 @@ public:
     void setNextSheet(void);
     void setPrevSheet(void);
     int sheetIndex(void);
+    void setCurrentWorksheet(int index);
 public slots:
 
 protected slots:

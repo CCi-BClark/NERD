@@ -15,8 +15,9 @@ public:
     void addSheet(int index, QString title);
     void setSheetProperties(int rows, int columns, QStringList headers);
 signals:
-
+    void indexChanged(int);
 public slots:
+    void emitIndexChange(int index);
 
 private:
     Wbook *book;

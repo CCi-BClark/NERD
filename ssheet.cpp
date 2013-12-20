@@ -1,16 +1,16 @@
 #include "ssheet.h"
 #include "ui_ssheet.h"
-#include <QtMath>
+#include <QItemSelectionModel>
 Ssheet::Ssheet(QWidget *parent) : QWidget(parent), ui(new Ui::Ssheet){
     ui->setupUi(this);
 
-    ui->table->resizeRowsToContents();
-    ui->table->resizeColumnsToContents();
     ui->table->verticalHeader()->setVisible(false);
 
     ui->table->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->table->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->table->setSelectionBehavior(QAbstractItemView::SelectItems);
     ui->table->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->table->setStyleSheet("QTableWidget {selection-background-color: black; selection-color: white}");
+
     ui->table->setShowGrid(false);
 }
 
@@ -28,6 +28,9 @@ void Ssheet::setSheetRowSpan(int n){
 
 void Ssheet::setSheetColumnSpan(int n){
     ui->table->setColumnCount(n);
+
+    //ui->table->resizeRowsToContents();
+    //ui->table->resizeColumnsToContents();
 }
 
 void Ssheet::setSheetHeaders(QStringList headers){

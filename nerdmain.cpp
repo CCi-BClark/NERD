@@ -24,19 +24,15 @@ NerdMain::~NerdMain(){
 }
 
 void NerdMain::openFile(void){
-    data->setDataFile(QFileDialog::getOpenFileName(this,QObject::tr("Open Excel File"), "/home/",QObject::tr("Excel Files (*.xlsx)")));
-    toggleLayout(open->isOpen());
-    //COMEBACK AND REDOO LOAD FILE LOGIC DUE TO CHANGES IN OBJECT STRUCTURE!!!
-    /*
-    QString name("");
-    if(name != "") {
+    QString name(data->getDataFileName());
+    if(name != NULL) {
         delete data;
         data = new Navigate;
         open->btnToggle();
         openFile();
     } else {
         data->setDataFile(QFileDialog::getOpenFileName(this,QObject::tr("Open Excel File"), "/home/",QObject::tr("Excel Files (*.xlsx)")));
-        name.append("");
+        name.append(data->getDataFileName());
         if(name != NULL) {
             open->setFileName(name);
         } else {
@@ -47,7 +43,6 @@ void NerdMain::openFile(void){
         }
         toggleLayout(open->isOpen());
     }
-    */
 }
 
 void NerdMain::toggleLayout(int control){

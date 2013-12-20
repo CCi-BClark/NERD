@@ -2,6 +2,8 @@
 #define CURRENTRECORD_H
 
 #include <QWidget>
+#include "windows.h"
+#include <QVector>
 
 namespace Ui {
 class CurrentRecord;
@@ -14,6 +16,8 @@ class CurrentRecord : public QWidget
 public:
     explicit CurrentRecord(QWidget *parent = 0);
     ~CurrentRecord();
+    void setRecord(QStringList record);
+    void clearList(void);
 
 private:
     Ui::CurrentRecord *ui;

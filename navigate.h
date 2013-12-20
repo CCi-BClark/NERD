@@ -15,10 +15,12 @@ public:
     explicit Navigate(QWidget *parent = 0);
     ~Navigate();
     void setDataFile(QFileInfo file);
+    QString getDataFileName(void);
 
 signals:
 
 public slots:
+    void sheetIndexChanged(int index);
     void hotkeyPressed(int key);
     void setNextCell(void);
     void setNextRecord(void);

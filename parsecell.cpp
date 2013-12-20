@@ -1,19 +1,25 @@
 #include "parsecell.h"
 
-ParseCell::ParseCell(){
+ParseCell::ParseCell() : columnPos(0){
 }
 
 ParseCell::~ParseCell(){
 }
 
 void ParseCell::setNextCell(void){
+    if (columnPos < getColumnCount()) {
+        columnPos += 1;
+    } else {
+        setNextRecord();
+    }
 }
 
 void ParseCell::setPrevCell(void){
-}
-
-int ParseCell::getCurrentRow(void){
-    return rowPos;
+    if (columnPos > 0) {
+        columnPos -= 1;
+    } else {
+        setPrevRecord();
+    }
 }
 
 int ParseCell::getCurrentColumn(void){
@@ -21,10 +27,6 @@ int ParseCell::getCurrentColumn(void){
 }
 
 QVariant ParseCell::getCell(int row, int column){
-    QString val1(dataStore->read(row,column).toString());
-    QString val2(dataStore->cellAt(row,column)->value().toString());
     QXlsx::Cell *val3(dataStore->cellAt(row,column));
-    QXlsx::Format val4(val3->format());
-
     return val3->value();
 }

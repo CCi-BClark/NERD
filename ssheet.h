@@ -18,6 +18,9 @@ public:
     void setSheetColumnSpan(int n);
     void setSheetHeaders(QStringList headers);
     void setCell(int row, int column, QVariant cell);
+
+    void selectRow(int row);
+    void selectCell(int row, int column);
 private:
     Ui::Ssheet *ui;
 };

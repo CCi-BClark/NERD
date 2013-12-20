@@ -30,7 +30,11 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QTableWidget" name="table"/>
+    <widget class="QTableWidget" name="table">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

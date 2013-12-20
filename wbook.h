@@ -19,7 +19,11 @@ public:
     explicit Wbook(QWidget *parent = 0);
     ~Wbook();    
     void createTab(int index, QString title, QWidget *worksheet);
+signals:
+    void changedIndex(int);
 public slots:
+    void emitIndexChange(int index);
+
 protected:
 
 private:

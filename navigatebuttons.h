@@ -14,6 +14,10 @@ class NavigateButtons : public QWidget
 public:
     explicit NavigateButtons(QWidget *parent = 0);
     ~NavigateButtons();
+    void setNextEnabled(bool tf);
+    void setNextCellEnabled(bool tf);
+    void setPrevEnabled(bool tf);
+    void setPrevCellEnabled(bool tf);
 
 signals:
     void clickedNextRecord(void);

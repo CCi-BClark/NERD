@@ -6,9 +6,12 @@ ExcelMockWidget::ExcelMockWidget(QWidget *parent) : QWidget(parent) {
     container = new QVBoxLayout;
     container->addWidget(book);
     setLayout(container);
+
+    connect(book,SIGNAL(changedIndex(int)),this,SLOT(emitIndexChange(int)));
 }
 
 ExcelMockWidget::~ExcelMockWidget(){
+
 }
 
 void ExcelMockWidget::addCell(int row, int column, QVariant cell){
@@ -17,7 +20,6 @@ void ExcelMockWidget::addCell(int row, int column, QVariant cell){
 
 void ExcelMockWidget::addSheet(int index, QString title){
     book->createTab(index, title, sheet);
-    //delete sheet;
 }
 
 void ExcelMockWidget::setSheetProperties(int rows, int columns, QStringList headers){
@@ -25,4 +27,8 @@ void ExcelMockWidget::setSheetProperties(int rows, int columns, QStringList head
     sheet->setSheetColumnSpan(columns);
     sheet->setSheetRowSpan(rows);
     sheet->setSheetHeaders(headers);
+}
+
+void ExcelMockWidget::emitIndexChange(int index){
+    emit indexChanged(index);
 }

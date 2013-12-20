@@ -2,6 +2,8 @@
 #define SYSTEMFOCUSWIDGET_H
 
 #include <QWidget>
+#include "windows.h"
+#include <QVector>
 #include <currentrecord.h>
 #include <qsystemhotkey.h>
 
@@ -16,6 +18,7 @@ class SystemFocusWidget : public QWidget
 public:
     explicit SystemFocusWidget(QWidget *parent = 0);
     ~SystemFocusWidget();
+    void setRecord(QStringList record);
 
 signals:
     void startSystemFocus(void);

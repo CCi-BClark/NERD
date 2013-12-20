@@ -21,15 +21,11 @@ void ParseBook::setData(QFileInfo open){
     range = new QXlsx::CellRange(dataStore->dimension());
 }
 
-void ParseBook::setCurrentWorksheet(int index){
-    dataStore->setCurrentWorksheet(index);
-}
-
 QString ParseBook::getFileTitle(){
     return file.fileName();
 }
 
 QString ParseBook::getSheetTitle(int index){
-    setCurrentWorksheet(index);
+    dataStore->setCurrentWorksheet(index);
     return dataStore->currentWorksheet()->sheetName();
 }

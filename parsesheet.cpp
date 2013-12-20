@@ -1,6 +1,6 @@
 #include "parsesheet.h"
 
-ParseSheet::ParseSheet(){
+ParseSheet::ParseSheet() : sheetPos(0){
 }
 
 ParseSheet::~ParseSheet(){
@@ -14,4 +14,9 @@ void ParseSheet::setPrevSheet(){
 
 int ParseSheet::sheetIndex(){
     return sheetPos;
+}
+
+void ParseSheet::setCurrentWorksheet(int index){
+    dataStore->setCurrentWorksheet(index);
+    sheetPos = index;
 }

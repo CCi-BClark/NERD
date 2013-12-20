@@ -20,21 +20,23 @@ SystemFocusWidget::~SystemFocusWidget(){
     delete ui;
 }
 
+void SystemFocusWidget::setRecord(QStringList record){
+    recordView->setRecord(record);
+}
+
 void SystemFocusWidget::clickToggle(){
     if(isOn){
-        QApplication::processEvents();
-        hotkeys->haltHotkeys();
-        QApplication::processEvents();
         isOn = false;
         setTitle("Start");
         recordView->hide();
+        QApplication::processEvents();
+        hotkeys->haltHotkeys();
     } else {
-        QApplication::processEvents();
-        hotkeys->beginHotkeys();
-        QApplication::processEvents();
         isOn = true;
         setTitle("Stop");
         recordView->show();
+        QApplication::processEvents();
+        hotkeys->beginHotkeys();
     }
 }
 
