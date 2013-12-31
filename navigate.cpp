@@ -1,9 +1,10 @@
 #include "navigate.h"
+#include <QDebug>
 
 Navigate::Navigate(QWidget *parent) : QWidget(parent){
     excelView = new ExcelMockWidget;
     btnNavigation = new NavigateButtons;
-    btnControlState = new SystemFocusWidget;
+    focusRecord = new SystemFocusWidget;
     parser = new ParseExcel;
 
     btnHContainer = new QHBoxLayout;
@@ -13,7 +14,7 @@ Navigate::Navigate(QWidget *parent) : QWidget(parent){
 
     btnHContainer->addWidget(btnNavigation);
     btnHContainer->addSpacerItem(spacer);
-    btnHContainer->addWidget(btnControlState);
+    btnHContainer->addWidget(focusRecord);
 
     viewVContainer->addWidget(excelView);
     viewVContainer->addItem(btnHContainer);
@@ -24,7 +25,7 @@ Navigate::Navigate(QWidget *parent) : QWidget(parent){
 
 Navigate::~Navigate(){
     delete excelView;
-    delete btnControlState;
+    delete focusRecord;
     delete btnNavigation;
 }
 
@@ -46,6 +47,8 @@ void Navigate::setDataFile(QFileInfo file){
         excelView->addSheet(i,parser->getSheetTitle(i));
     }
     parser->setCurrentWorksheet(0);
+    focusRecord->setRecord(parser->getRecord(parser->getCurrentRow()));
+    qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
 }
 
 QString Navigate::getDataFileName(){
@@ -57,46 +60,48 @@ void Navigate::sheetIndexChanged(int index){
 }
 
 void Navigate::setNextCell(){
-    parser->setNextCell();
-    // Come back to for cell parse
-    /*if (parser->getCurrentRow() >= parser->getRowCount()-1) {
-        btnNavigation->setNextEnabled(false);
-        btnNavigation->setNextCellEnabled(false);
+    if (parser->getCurrentRow() < parser->getRowCount()-1) {
+        if (parser->getCurrentColumn()+1 == parser->getColumnCount()-1) {
+            parser->setNextCell();
+            if (parser->getCurrentRow() == parser->getRowCount()-1) {
+                btnNavigation->setNextCellEnabled(false);
+            }
+        } else {
+            setNextRecord();
+        }
     }
-    if (parser->getCurrentRow() > 0){
-        btnNavigation->setPrevEnabled(true);
-        btnNavigation->setPrevCellEnabled(true);
-    }
-    btnControlState->setRecord(parser->getRecord(parser->getCurrentRow()));
-    */
+    qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
 }
 
 void Navigate::setNextRecord(){
     parser->setNextRecord();
     if (parser->getCurrentRow() >= parser->getRowCount()-1) {
         btnNavigation->setNextEnabled(false);
-        btnNavigation->setNextCellEnabled(false);
     }
-    if (parser->getCurrentRow() > 0){
+    if (parser->getCurrentRow() == 2){
         btnNavigation->setPrevEnabled(true);
         btnNavigation->setPrevCellEnabled(true);
     }
-    btnControlState->setRecord(parser->getRecord(parser->getCurrentRow()));
+    focusRecord->setRecord(parser->getRecord(parser->getCurrentRow()));
+    qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
 }
 
 void Navigate::setPrevCell(){
     parser->setPrevCell();
-    // Come back to for cell parse
-    /*if (parser->getCurrentRow() < 2) {
+    if (parser->getCurrentRow() > 1) {
+        if (parser->getCurrentRow() == parser->getRowCount()-1) {
+            if (parser->getCurrentColumn() == parser->getColumnCount()-2) {
+                btnNavigation->setNextCellEnabled(true);
+            }
+        }
+        focusRecord->setRecord(parser->getRecord(parser->getCurrentRow()));
+    } else if (parser->getCurrentRow() == 1) {
         btnNavigation->setPrevEnabled(false);
-        btnNavigation->setPrevCellEnabled(false);
+        if (parser->getCurrentColumn() == 0){
+            btnNavigation->setPrevCellEnabled(false);
+        }
     }
-    if (parser->getCurrentRow() < parser->getRowCount()-1) {
-        btnNavigation->setNextEnabled(true);
-        btnNavigation->setNextCellEnabled(true);
-    }
-    */
-    btnControlState->setRecord(parser->getRecord(parser->getCurrentRow()));
+    qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
 }
 
 void Navigate::setPrevRecord(){
@@ -109,7 +114,8 @@ void Navigate::setPrevRecord(){
         btnNavigation->setNextEnabled(true);
         btnNavigation->setNextCellEnabled(true);
     }
-    btnControlState->setRecord(parser->getRecord(parser->getCurrentRow()));
+    focusRecord->setRecord(parser->getRecord(parser->getCurrentRow()));    
+    qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
 }
 
 void Navigate::setSignalSlot(){
@@ -117,7 +123,7 @@ void Navigate::setSignalSlot(){
     connect(btnNavigation,SIGNAL(clickedNextRecord()),this,SLOT(setNextRecord()));
     connect(btnNavigation,SIGNAL(clickedPrevCell()),this,SLOT(setPrevCell()));
     connect(btnNavigation,SIGNAL(clickedPrevRecord()),this,SLOT(setPrevRecord()));
-    connect(btnControlState,SIGNAL(hotkey(int)),this,SLOT(hotkeyPressed(int)));
+    connect(focusRecord,SIGNAL(hotkey(int)),this,SLOT(hotkeyPressed(int)));
     connect(excelView, SIGNAL(indexChanged(int)),this,SLOT(sheetIndexChanged(int)));
 }
 

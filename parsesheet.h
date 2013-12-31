@@ -2,11 +2,9 @@
 #define PARSESHEET_H
 
 #include <QObject>
-#include <xlsxworksheet.h>
 #include <parsebook.h>
 
-class ParseSheet : public ParseBook
-{
+class ParseSheet : public ParseBook{
 public:
     ParseSheet();
     ~ParseSheet();

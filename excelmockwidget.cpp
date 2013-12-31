@@ -6,7 +6,6 @@ ExcelMockWidget::ExcelMockWidget(QWidget *parent) : QWidget(parent) {
     container = new QVBoxLayout;
     container->addWidget(book);
     setLayout(container);
-
     connect(book,SIGNAL(changedIndex(int)),this,SLOT(emitIndexChange(int)));
 }
 

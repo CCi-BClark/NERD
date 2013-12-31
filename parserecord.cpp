@@ -1,6 +1,6 @@
 #include "parserecord.h"
 
-ParseRecord::ParseRecord() : ParseSheet(), rowPos(1){
+ParseRecord::ParseRecord() : rowPos(1){
 }
 
 ParseRecord::~ParseRecord(){

@@ -1,22 +1,10 @@
 TODO
 
--(done) Set the position of "Current Record Tracker" window to automaticly place in top-left corner.
-
--(done) Make "Current Record Tracker" stay on top of all windows.
-
--(done) Fix exit error due to global hotkey loop.
-
--(done) Fix element layout so it runs proper view on cross platforms(i.e. windows, linux, mac)
-
--(done) Add ability for parent with data table to resize when file is loaded.
-
--(done) Fix : formula for cell shows when value of formula should be displayed in QTableWidget.
-
--(done) Add next/prev cell buttons and menu items.
-
 - Fix when parent window closes other windows stay open.
 
-- Put data table and functions to it own widget class.
+- (In-Progress)Put data table and functions to it own widget class.
+
+- Correct date format display as defined by ECMA-376 standard.  See http://msdn.microsoft.com/en-us/library/ff529356%28v=office.12%29.aspx
 
 - Make "Current Record Tracker" window size to the amount of header cells, don't allow it to be larger then screen height.
 

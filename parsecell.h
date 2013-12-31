@@ -14,7 +14,11 @@ public slots:
     void setPrevCell(void);
     int getCurrentColumn(void);
     QVariant getCell(int row, int column);
-protected slots:
+    void setNextRecord(void);
+    void setPrevRecord(void);
+protected:
+    void resetPosFront(void);
+    void resetPosBack(void);
 private:
     int columnPos;
 };

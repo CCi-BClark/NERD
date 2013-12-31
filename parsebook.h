@@ -2,6 +2,7 @@
 #define PARSEBOOK_H
 
 #include <QObject>
+#include <QWidget>
 #include <QFileDialog>
 #include <QFileInfo>
 #include "xlsxdocument.h"

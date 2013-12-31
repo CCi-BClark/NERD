@@ -33,7 +33,7 @@ protected:
 private:
     ExcelMockWidget *excelView;
     NavigateButtons *btnNavigation;
-    SystemFocusWidget *btnControlState;
+    SystemFocusWidget *focusRecord;
     ParseExcel *parser;
     QHBoxLayout *btnHContainer;
     QVBoxLayout *viewVContainer;
