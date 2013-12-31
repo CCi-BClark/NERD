@@ -25,17 +25,17 @@
 #include "xlsxformat.h"
 #include "xlsxformat_p.h"
 #include "xlsxcolor_p.h"
+#include "xlsxnumformatparser_p.h"
 #include <QDataStream>
-#include <QRegularExpression>
 #include <QDebug>
 
 QT_BEGIN_NAMESPACE_XLSX
 
 FormatPrivate::FormatPrivate()
     : dirty(true)
-    , font_dirty(true), font_index_valid(false), font_index(-1)
-    , fill_dirty(true), fill_index_valid(false), fill_index(-1)
-    , border_dirty(true), border_index_valid(false), border_index(-1)
+    , font_dirty(true), font_index_valid(false), font_index(0)
+    , fill_dirty(true), fill_index_valid(false), fill_index(0)
+    , border_dirty(true), border_index_valid(false), border_index(0)
     , xf_index(-1), xf_indexValid(false)
     , is_dxf_fomat(false), dxf_index(-1), dxf_indexValid(false)
     , theme(0)
@@ -180,7 +180,14 @@ FormatPrivate::~FormatPrivate()
  */
 Format::Format()
 {
-    qRegisterMetaTypeStreamOperators<XlsxColor>("XlsxColor");
+    if (QMetaType::type("XlsxColor") == QMetaType::UnknownType) {
+        //Fix me! Where should we put these register code?
+        qRegisterMetaType<XlsxColor>("XlsxColor");
+        qRegisterMetaTypeStreamOperators<XlsxColor>("XlsxColor");
+#if QT_VERSION >= 0x050200
+        QMetaType::registerDebugStreamOperator<XlsxColor>();
+#endif
+    }
     //The d pointer is initialized with a null pointer
 }
 
@@ -215,7 +222,7 @@ Format::~Format()
  */
 int Format::numberFormatIndex() const
 {
-    return intProperty(FormatPrivate::P_NumFmt_Id);
+    return intProperty(FormatPrivate::P_NumFmt_Id, 0);
 }
 
 /*!
@@ -259,16 +266,16 @@ bool Format::isDateTimeFormat() const
     if (hasProperty(FormatPrivate::P_NumFmt_FormatCode)) {
         //Custom numFmt, so
         //Gauss from the number string
-        QString formatCode = numberFormat();
-        formatCode.remove(QRegularExpression(QStringLiteral("\\[(Green|White|Blue|Magenta|Yellow|Cyan|Red)\\]")));
-        if (formatCode.contains(QRegularExpression(QStringLiteral("[dmhys]"))))
-            return true;
+        return NumFormatParser::isDateTime(numberFormat());
     } else if (hasProperty(FormatPrivate::P_NumFmt_Id)){
         //Non-custom numFmt
         int idx = numberFormatIndex();
 
         //Is built-in date time number id?
-        if ((idx >= 15 && idx <= 22) || (idx >= 45 && idx <= 47))
+        if ((idx >= 14 && idx <= 22) || (idx >= 45 && idx <= 47))
+            return true;
+
+        if ((idx >= 27 && idx <= 36) || (idx >= 50 && idx <= 58)) //Used in CHS\CHT\JPN\KOR
             return true;
     }
 
@@ -477,7 +484,7 @@ int Format::fontIndex() const
     if (fontIndexValid())
         return d->font_index;
 
-    return -1;
+    return 0;
 }
 
 /*!
@@ -884,7 +891,9 @@ bool Format::borderIndexValid() const
 */
 int Format::borderIndex() const
 {
-    return d->border_index;
+    if (borderIndexValid())
+        return d->border_index;
+    return 0;
 }
 
 /*!
@@ -893,6 +902,7 @@ int Format::borderIndex() const
 void Format::setBorderIndex(int index)
 {
     d->border_index = index;
+    d->border_index_valid = true;
 }
 
 /*! \internal
@@ -1000,9 +1010,9 @@ bool Format::fillIndexValid() const
  */
 int Format::fillIndex() const
 {
-    if (!d)
-        return 0;
-    return d->fill_index;
+    if (fillIndexValid())
+        return d->fill_index;
+    return 0;
 }
 
 /*!
@@ -1011,6 +1021,7 @@ int Format::fillIndex() const
 void Format::setFillIndex(int index)
 {
     d->fill_index = index;
+    d->fill_index_valid = true;
 }
 
 /*!
@@ -1233,7 +1244,7 @@ int Format::theme() const
  */
 QVariant Format::property(int propertyId, const QVariant &defaultValue) const
 {
-    if (d->property.contains(propertyId))
+    if (d && d->property.contains(propertyId))
         return d->property[propertyId];
     return defaultValue;
 }

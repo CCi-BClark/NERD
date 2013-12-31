@@ -48,7 +48,7 @@ namespace QXlsx {
 
 class Styles;
 
-class XlsxColor
+class Q_XLSX_EXPORT XlsxColor
 {
 public:
     explicit XlsxColor(const QColor &color = QColor());
@@ -66,16 +66,23 @@ public:
 
     operator QVariant() const;
 
+    static QColor fromARGBString(const QString &c);
+    static QString toARGBString(const QColor &c);
+
     bool saveToXml(QXmlStreamWriter &writer, const QString &node=QString()) const;
-    bool loadFromXml(QXmlStreamReader &reader, Styles *styles=0);
+    bool loadFromXml(QXmlStreamReader &reader);
 
 private:
     QVariant val;
 };
 
 #if !defined(QT_NO_DATASTREAM)
-QDataStream &operator<<(QDataStream &, const XlsxColor &);
-QDataStream &operator>>(QDataStream &, XlsxColor &);
+Q_XLSX_EXPORT QDataStream &operator<<(QDataStream &, const XlsxColor &);
+Q_XLSX_EXPORT QDataStream &operator>>(QDataStream &, XlsxColor &);
+#endif
+
+#ifndef QT_NO_DEBUG_STREAM
+Q_XLSX_EXPORT QDebug operator<<(QDebug dbg, const XlsxColor &c);
 #endif
 
 } // namespace QXlsx

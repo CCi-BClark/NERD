@@ -22,8 +22,8 @@
 ** WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **
 ****************************************************************************/
-#ifndef XLSXUTILITY_H
-#define XLSXUTILITY_H
+#ifndef QXLSX_NUMFORMATPARSER_H
+#define QXLSX_NUMFORMATPARSER_H
 
 //
 //  W A R N I N G
@@ -37,26 +37,15 @@
 //
 
 #include "xlsxglobal.h"
-class QPoint;
-class QString;
-class QStringList;
-class QColor;
-class QDateTime;
-class QTime;
 
 namespace QXlsx {
 
-XLSX_AUTOTEST_EXPORT int intPow(int x, int p);
-XLSX_AUTOTEST_EXPORT QStringList splitPath(const QString &path);
-XLSX_AUTOTEST_EXPORT double datetimeToNumber(const QDateTime &dt, bool is1904=false);
-XLSX_AUTOTEST_EXPORT QDateTime datetimeFromNumber(double num, bool is1904=false);
-XLSX_AUTOTEST_EXPORT double timeToNumber(const QTime &t);
+class NumFormatParser
+{
+public:
+    static bool isDateTime(const QString &formatCode);
+};
 
-XLSX_AUTOTEST_EXPORT QPoint xl_cell_to_rowcol(const QString &cell_str);
-XLSX_AUTOTEST_EXPORT QString xl_col_to_name(int col_num);
-XLSX_AUTOTEST_EXPORT int xl_col_name_to_value(const QString &col_str);
-XLSX_AUTOTEST_EXPORT QString xl_rowcol_to_cell(int row, int col, bool row_abs=false, bool col_abs=false);
-XLSX_AUTOTEST_EXPORT QString xl_rowcol_to_cell_fast(int row, int col);
+} // namespace QXlsx
 
-} //QXlsx
-#endif // XLSXUTILITY_H
+#endif // QXLSX_NUMFORMATPARSER_H
