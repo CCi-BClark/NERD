@@ -22,6 +22,8 @@
 ** WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 **
 ****************************************************************************/
+#define INT32_MAX  32
+#define INT32_MIN  16
 #include "xlsxrichstring.h"
 #include "xlsxworksheet.h"
 #include "xlsxworksheet_p.h"

@@ -16,7 +16,7 @@ public slots:
     int getCurrentRow(void);
     int getRowCount(void);
     QStringList getRecord(int row);
-    QStringList getRow(int index, int row);
+    QStringList getRow(int row);
 protected slots:
 private:
     int rowPos;

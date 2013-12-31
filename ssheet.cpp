@@ -27,10 +27,8 @@ void Ssheet::setSheetRowSpan(int n){
 }
 
 void Ssheet::setSheetColumnSpan(int n){
+    // We add 1 to n because setColumnCount() starts at 0 for no columns and wish to keep array math.
     ui->table->setColumnCount(n);
-
-    //ui->table->resizeRowsToContents();
-    //ui->table->resizeColumnsToContents();
 }
 
 void Ssheet::setSheetHeaders(QStringList headers){

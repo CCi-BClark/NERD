@@ -29,8 +29,14 @@ int ParseCell::getCurrentColumn(void){
 }
 
 QVariant ParseCell::getCell(int row, int column){
+    QVariant val1;
     QXlsx::Cell *val3(dataStore->cellAt(row,column));
-    return val3->value();
+    if (val3->isDateTime()) {
+        val1 = QVariant(val3->dateTime().date());
+    } else {
+        val1 = QVariant(val3->value());
+    }
+    return val1;
 }
 
 void ParseCell::setNextRecord(){

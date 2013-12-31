@@ -14,6 +14,10 @@ class NavigateButtons : public QWidget
 public:
     explicit NavigateButtons(QWidget *parent = 0);
     ~NavigateButtons();
+    void setNextToggle(int toggle);
+    void setPrevToggle(int toggle);
+
+protected:
     void setNextEnabled(bool tf);
     void setNextCellEnabled(bool tf);
     void setPrevEnabled(bool tf);

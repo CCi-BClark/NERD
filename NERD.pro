@@ -11,8 +11,7 @@ include(QtXlsx/xlsx/qtxlsx.pri)
 include(QSystemHotkey/src/systemhotkey/qsystemhotkey.pri)
 
 QT       += core gui
-
-QT += widgets
+QT       += widgets
 
 TARGET = NERD
 TEMPLATE = app
@@ -33,8 +32,7 @@ SOURCES += main.cpp\
     parseexcel.cpp \
     navigate.cpp \
     navigatebuttons.cpp \
-    systemfocuswidget.cpp \
-    widget.cpp
+    systemfocuswidget.cpp
 
 HEADERS  += nerdmain.h \
     about.h \
@@ -50,8 +48,7 @@ HEADERS  += nerdmain.h \
     parseexcel.h \
     navigate.h \
     navigatebuttons.h \
-    systemfocuswidget.h \
-    widget.h
+    systemfocuswidget.h
 
 FORMS    += nerdmain.ui \
     about.ui \

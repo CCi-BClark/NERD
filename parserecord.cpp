@@ -1,4 +1,5 @@
 #include "parserecord.h"
+#include <QDebug>
 
 ParseRecord::ParseRecord() : rowPos(1){
 }
@@ -42,8 +43,7 @@ QStringList ParseRecord::getRecord(int row){
     return record;
 }
 
-QStringList ParseRecord::getRow(int index, int row){
-    setCurrentWorksheet(index);
+QStringList ParseRecord::getRow(int row){
     QStringList list;
     for(int i= 1;i <= getColumnCount();i++){
         list << dataStore->read(row,i).toString();

@@ -2,6 +2,7 @@
 #define PARSECELL_H
 
 #include <QObject>
+#include <QDateTime>
 #include <parserecord.h>
 
 class ParseCell : public ParseRecord

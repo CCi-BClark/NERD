@@ -13,6 +13,44 @@ NavigateButtons::~NavigateButtons(){
     delete ui;
 }
 
+void NavigateButtons::setNextToggle(int toggle){
+    switch (toggle) {
+    case 0:
+        setNextCellEnabled(false);
+        setNextEnabled(false);
+        break;
+    case 1:
+        setNextCellEnabled(true);
+        setNextEnabled(false);
+        break;
+    case 2:
+        setNextCellEnabled(true);
+        setNextEnabled(true);
+        break;
+    default:
+        break;
+    }
+}
+
+void NavigateButtons::setPrevToggle(int toggle){
+    switch (toggle) {
+    case 0:
+        setPrevCellEnabled(false);
+        setPrevEnabled(false);
+        break;
+    case 1:
+        setPrevCellEnabled(true);
+        setPrevEnabled(false);
+        break;
+    case 2:
+        setPrevCellEnabled(true);
+        setPrevEnabled(true);
+        break;
+    default:
+        break;
+    }
+}
+
 void NavigateButtons::setNextEnabled(bool tf){
     ui->btnNext->setEnabled(tf);
 }
