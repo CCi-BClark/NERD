@@ -2,10 +2,18 @@ TODO
 
 - Fix when parent window closes other windows stay open.
 
-- (In-Progress)Put data table and functions to it own widget class.
+- (In-Progress)Put data table and functions to it own widget class from prototype Beta v.2.
 
-- Correct date format display as defined by ECMA-376 standard.  See http://msdn.microsoft.com/en-us/library/ff529356%28v=office.12%29.aspx
+- Make "Current Record Tracker" window size no larger than screen height.
 
-- Make "Current Record Tracker" window size to the amount of header cells, don't allow it to be larger then screen height.
+- Add status bar to CurrentRecordWidget to track current row of total rows.
+
+- Make QListView represent selected cell.
+
+- Make MockExcelWidget represent selected cell/row.
+
+- Link menu bar to shortcut keys. Ensure menu item represent btnNavigation state.
 
 - Test on Mac, Linux, WinXp, Win8
+
+

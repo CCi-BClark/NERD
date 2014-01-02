@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <QClipboard>
+#include <QStandardItemModel>
+#include <QItemSelectionModel>
 #include "windows.h"
 #include <QVector>
 
@@ -20,6 +22,10 @@ public:
     void setRecord(QStringList header, QStringList record);
     void clearList(void);
     void setSelection(int column);
+
+protected:
+    void setWidth(QStringList header, QStringList record);
+    void setHeight(int header, int record);
 
 private:
     void setClipBoard(void);

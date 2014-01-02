@@ -39,6 +39,7 @@ void SystemFocusWidget::clickToggle(){
         isOn = true;
         setTitle("Stop");
         recordView->show();
+        recordView->setSelection(0);
         QApplication::processEvents();
         hotkeys->beginHotkeys();
     }
