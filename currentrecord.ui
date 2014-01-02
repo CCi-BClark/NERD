@@ -102,6 +102,12 @@ selection-color: rgb(0, 0, 0);</string>
        <property name="lineWidth">
         <number>0</number>
        </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
       </widget>
      </item>
     </layout>

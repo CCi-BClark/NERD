@@ -32,21 +32,17 @@ int ParseRecord::getRowCount(void){
     return dataStore->currentWorksheet()->dimension().rowCount();
 }
 
-QStringList ParseRecord::getRecord(int row){
-    QStringList record;
-    for (int i = 0; i < getColumnCount(); ++i) {
-        QString one(dataStore->read(1,i+1).toString());
-        QString two(dataStore->read(row+1,i+1).toString());
-        QString item = QString("%1 :  %2").arg(one).arg(two);
-        record.insert(i,item);
-    }
-    return record;
-}
-
 QStringList ParseRecord::getRow(int row){
     QStringList list;
     for(int i= 1;i <= getColumnCount();i++){
-        list << dataStore->read(row,i).toString();
+        if (dataStore->cellAt(row,i) != NULL){
+            if (dataStore->cellAt(row,i)->isDateTime()) {
+                QString format("MM/dd/yyyy");
+                list << dataStore->cellAt(row,i)->dateTime().toString(format);
+            } else {
+                list << dataStore->cellAt(row,i)->value().toString();
+            }
+        }
     }
     return list;
 }
