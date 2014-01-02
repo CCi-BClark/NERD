@@ -63,11 +63,8 @@ void Navigate::setNextCell(){
     int prevRow = parser->getCurrentRow();
     parser->setNextCell();
     int currentRow = parser->getCurrentRow();
-    int totalRow = parser->getRowCount()-1;
-    int currentColumn = parser->getCurrentColumn();
-    int totalColumn = parser->getColumnCount() - 1;
-    if(totalRow == currentRow){
-        if (totalColumn == currentColumn) {
+    if(parser->isLastRow()){
+        if (parser->isLastColumn()) {
             btnNavigation->setNextToggle(0);
         } else {
             btnNavigation->setNextToggle(1);
@@ -88,8 +85,7 @@ void Navigate::setNextCell(){
 void Navigate::setNextRecord(){
     parser->setNextRecord();
     int currentRow = parser->getCurrentRow();
-    int totalRow = parser->getRowCount()-1;
-    if(totalRow == currentRow){
+    if(parser->isLastRow()){
         btnNavigation->setNextToggle(1);
         if (1 == currentRow) {
             btnNavigation->setPrevToggle(1);
@@ -107,23 +103,21 @@ void Navigate::setNextRecord(){
 void Navigate::setPrevCell(){
     int prevRow = parser->getCurrentRow();
     parser->setPrevCell();
-    int currentColumn = parser->getCurrentColumn();
-    int totalRow = parser->getRowCount()-1;
     int currentRow = parser->getCurrentRow();
-    if(1 == currentRow){
-        if (0 == currentColumn) {
+    if(parser->isFirstRow()){
+        if (parser->isFirstColumn()) {
             btnNavigation->setPrevToggle(0);
         } else {
             btnNavigation->setPrevToggle(1);
         }
-        if (totalRow == currentRow) {
+        if (parser->isLastRow()) {
             btnNavigation->setNextToggle(1);
         } else {
             btnNavigation->setNextToggle(2);
         }
     } else {
         btnNavigation->setPrevToggle(2);
-        if (totalRow == currentRow) {
+        if (parser->isLastRow()) {
             btnNavigation->setNextToggle(1);
         } else {
             btnNavigation->setNextToggle(2);
@@ -137,11 +131,9 @@ void Navigate::setPrevCell(){
 
 void Navigate::setPrevRecord(){
     parser->setPrevRecord();
-    int currentRow = parser->getCurrentRow();
-    if(1 == currentRow){
-        int totalRow = parser->getRowCount()-1;
+    if(parser->isFirstRow()){
         btnNavigation->setPrevToggle(0);
-        if (totalRow == currentRow) {
+        if (parser->isLastRow()) {
             btnNavigation->setNextToggle(1);
         } else {
             btnNavigation->setNextToggle(2);
@@ -166,16 +158,32 @@ void Navigate::setSignalSlot(){
 void Navigate::hotkeyPressed(int key){
     switch (key) {
     case 200:
-        setNextCell();
+        if (parser->isLastRow()) {
+            if (!parser->isLastColumn()) {
+                setNextCell();
+            }
+        } else {
+            setNextCell();
+        }
         break;
     case 300:
-        setNextRecord();
+        if (!parser->isLastRow()) {
+            setNextRecord();
+        }
         break;
     case 400:
-        setPrevCell();
+        if (parser->isFirstRow()) {
+            if (!parser->isFirstColumn()) {
+                setPrevCell();
+            }
+        } else {
+            setPrevCell();
+        }
         break;
     case 500:
-        setPrevRecord();
+        if (!parser->isFirstRow()) {
+            setPrevRecord();
+        }
         break;
     default:
         break;
