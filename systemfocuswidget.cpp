@@ -7,10 +7,10 @@ SystemFocusWidget::SystemFocusWidget(QWidget *parent) : QWidget(parent), ui(new 
     hotkeys = new QSystemHotkey;
 
     ui->setupUi(this);
-    hotkeys->addKey(200,MOD_ALT,'X');
-    hotkeys->addKey(300,MOD_CONTROL,'X');
-    hotkeys->addKey(400,MOD_ALT,'A');
-    hotkeys->addKey(500,MOD_CONTROL,'A');
+    hotkeys->addKey(300,MOD_ALT,'X');
+    hotkeys->addKey(200,MOD_CONTROL,'X');
+    hotkeys->addKey(500,MOD_ALT,'A');
+    hotkeys->addKey(400,MOD_CONTROL,'A');
 
     connect(ui->btn,SIGNAL(clicked()),this,SLOT(clickToggle()));
     connect(hotkeys,SIGNAL(runHotkey(int)),this,SLOT(emitKey(int)));
@@ -20,8 +20,8 @@ SystemFocusWidget::~SystemFocusWidget(){
     delete ui;
 }
 
-void SystemFocusWidget::setRecord(QStringList record){
-    recordView->setRecord(record);
+void SystemFocusWidget::setRecord(QStringList header, QStringList record){
+    recordView->setRecord(header, record);
 }
 
 void SystemFocusWidget::setSelection(int column){

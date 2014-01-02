@@ -42,6 +42,7 @@ private:
     ParseExcel *parser;
     QHBoxLayout *btnHContainer;
     QVBoxLayout *viewVContainer;
+    QStringList headerList;
 
 };
 

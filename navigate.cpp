@@ -46,8 +46,8 @@ void Navigate::setDataFile(QFileInfo file){
         }
         excelView->addSheet(i,parser->getSheetTitle(i));
     }
-    parser->setCurrentWorksheet(0);
-    focusRecord->setRecord(parser->getRecord(parser->getCurrentRow()));
+    sheetIndexChanged(0);
+    focusRecord->setRecord(headerList, parser->getRow(parser->getCurrentRow()+1));
     qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
 }
 
@@ -57,6 +57,7 @@ QString Navigate::getDataFileName(){
 
 void Navigate::sheetIndexChanged(int index){
     parser->setCurrentWorksheet(index);
+    headerList = parser->getRow(1);
 }
 
 void Navigate::setNextCell(){
@@ -69,7 +70,7 @@ void Navigate::setNextCell(){
         firstRowToggle();
     }
     if (prevRow < currentRow) {
-        focusRecord->setRecord(parser->getRecord(parser->getCurrentRow()));
+        focusRecord->setRecord(headerList, parser->getRow(parser->getCurrentRow()+1));
     }
     focusRecord->setSelection(parser->getCurrentColumn());
     qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
@@ -84,7 +85,7 @@ void Navigate::setNextRecord(){
         btnNavigation->setNextToggle(2);
         btnNavigation->setPrevToggle(2);
     }
-    focusRecord->setRecord(parser->getRecord(parser->getCurrentRow()));
+    focusRecord->setRecord(headerList, parser->getRow(parser->getCurrentRow()+1));
     focusRecord->setSelection(parser->getCurrentColumn());
     qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
 }
@@ -101,7 +102,7 @@ void Navigate::setPrevCell(){
         lastRowToggle();
     }
     if (prevRow > currentRow) {
-        focusRecord->setRecord(parser->getRecord(parser->getCurrentRow()));
+        focusRecord->setRecord(headerList, parser->getRow(parser->getCurrentRow()+1));
     }
     focusRecord->setSelection(parser->getCurrentColumn());
     qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
@@ -116,7 +117,7 @@ void Navigate::setPrevRecord(){
         btnNavigation->setPrevToggle(2);
         btnNavigation->setNextToggle(2);
     }
-    focusRecord->setRecord(parser->getRecord(parser->getCurrentRow()));
+    focusRecord->setRecord(headerList, parser->getRow(parser->getCurrentRow()+1));
     focusRecord->setSelection(parser->getCurrentColumn());
     qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
 }

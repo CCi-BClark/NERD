@@ -18,7 +18,7 @@ class SystemFocusWidget : public QWidget
 public:
     explicit SystemFocusWidget(QWidget *parent = 0);
     ~SystemFocusWidget();
-    void setRecord(QStringList record);
+    void setRecord(QStringList header, QStringList record);
     void setSelection(int column);
 
 signals:

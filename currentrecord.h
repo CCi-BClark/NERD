@@ -2,6 +2,7 @@
 #define CURRENTRECORD_H
 
 #include <QWidget>
+#include <QClipboard>
 #include "windows.h"
 #include <QVector>
 
@@ -16,12 +17,16 @@ class CurrentRecord : public QWidget
 public:
     explicit CurrentRecord(QWidget *parent = 0);
     ~CurrentRecord();
-    void setRecord(QStringList record);
+    void setRecord(QStringList header, QStringList record);
     void clearList(void);
     void setSelection(int column);
 
 private:
+    void setClipBoard(void);
+
     Ui::CurrentRecord *ui;
+    QClipboard *clipboard;
+    int selectedItem;
 };
 
 #endif // CURRENTRECORD_H
