@@ -24,6 +24,10 @@ void SystemFocusWidget::setRecord(QStringList record){
     recordView->setRecord(record);
 }
 
+void SystemFocusWidget::setSelection(int column){
+    recordView->setSelection(column);
+}
+
 void SystemFocusWidget::clickToggle(){
     if(isOn){
         isOn = false;

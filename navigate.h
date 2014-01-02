@@ -31,6 +31,11 @@ protected:
     void setSignalSlot(void);
 
 private:
+    void lastRowToggle(void);
+    void lastColumnToggle(void);
+    void firstColumnToggle(void);
+    void firstRowToggle(void);
+
     ExcelMockWidget *excelView;
     NavigateButtons *btnNavigation;
     SystemFocusWidget *focusRecord;

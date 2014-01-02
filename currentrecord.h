@@ -18,6 +18,7 @@ public:
     ~CurrentRecord();
     void setRecord(QStringList record);
     void clearList(void);
+    void setSelection(int column);
 
 private:
     Ui::CurrentRecord *ui;

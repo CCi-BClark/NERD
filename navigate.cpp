@@ -64,39 +64,28 @@ void Navigate::setNextCell(){
     parser->setNextCell();
     int currentRow = parser->getCurrentRow();
     if(parser->isLastRow()){
-        if (parser->isLastColumn()) {
-            btnNavigation->setNextToggle(0);
-        } else {
-            btnNavigation->setNextToggle(1);
-        }
+        lastColumnToggle();
     } else {
-        if (1 == currentRow) {
-            btnNavigation->setPrevToggle(1);
-        } else {
-            btnNavigation->setPrevToggle(2);
-        }
+        firstRowToggle();
     }
     if (prevRow < currentRow) {
         focusRecord->setRecord(parser->getRecord(parser->getCurrentRow()));
     }
+    focusRecord->setSelection(parser->getCurrentColumn());
     qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
 }
 
 void Navigate::setNextRecord(){
     parser->setNextRecord();
-    int currentRow = parser->getCurrentRow();
     if(parser->isLastRow()){
         btnNavigation->setNextToggle(1);
-        if (1 == currentRow) {
-            btnNavigation->setPrevToggle(1);
-        } else {
-            btnNavigation->setPrevToggle(2);
-        }
+        firstRowToggle();
     } else {
         btnNavigation->setNextToggle(2);
         btnNavigation->setPrevToggle(2);
     }
     focusRecord->setRecord(parser->getRecord(parser->getCurrentRow()));
+    focusRecord->setSelection(parser->getCurrentColumn());
     qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
 }
 
@@ -105,27 +94,16 @@ void Navigate::setPrevCell(){
     parser->setPrevCell();
     int currentRow = parser->getCurrentRow();
     if(parser->isFirstRow()){
-        if (parser->isFirstColumn()) {
-            btnNavigation->setPrevToggle(0);
-        } else {
-            btnNavigation->setPrevToggle(1);
-        }
-        if (parser->isLastRow()) {
-            btnNavigation->setNextToggle(1);
-        } else {
-            btnNavigation->setNextToggle(2);
-        }
+        firstColumnToggle();
+        lastRowToggle();
     } else {
         btnNavigation->setPrevToggle(2);
-        if (parser->isLastRow()) {
-            btnNavigation->setNextToggle(1);
-        } else {
-            btnNavigation->setNextToggle(2);
-        }
+        lastRowToggle();
     }
     if (prevRow > currentRow) {
         focusRecord->setRecord(parser->getRecord(parser->getCurrentRow()));
     }
+    focusRecord->setSelection(parser->getCurrentColumn());
     qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
 }
 
@@ -133,16 +111,13 @@ void Navigate::setPrevRecord(){
     parser->setPrevRecord();
     if(parser->isFirstRow()){
         btnNavigation->setPrevToggle(0);
-        if (parser->isLastRow()) {
-            btnNavigation->setNextToggle(1);
-        } else {
-            btnNavigation->setNextToggle(2);
-        }
+        lastRowToggle();
     } else {
         btnNavigation->setPrevToggle(2);
         btnNavigation->setNextToggle(2);
     }
     focusRecord->setRecord(parser->getRecord(parser->getCurrentRow()));
+    focusRecord->setSelection(parser->getCurrentColumn());
     qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
 }
 
@@ -153,6 +128,38 @@ void Navigate::setSignalSlot(){
     connect(btnNavigation,SIGNAL(clickedPrevRecord()),this,SLOT(setPrevRecord()));
     connect(focusRecord,SIGNAL(hotkey(int)),this,SLOT(hotkeyPressed(int)));
     connect(excelView, SIGNAL(indexChanged(int)),this,SLOT(sheetIndexChanged(int)));
+}
+
+void Navigate::lastRowToggle(){
+    if (parser->isLastRow()) {
+        btnNavigation->setNextToggle(1);
+    } else {
+        btnNavigation->setNextToggle(2);
+    }
+}
+
+void Navigate::lastColumnToggle(){
+    if (parser->isLastColumn()) {
+        btnNavigation->setNextToggle(0);
+    } else {
+        btnNavigation->setNextToggle(1);
+    }
+}
+
+void Navigate::firstColumnToggle(){
+    if (parser->isFirstColumn()) {
+        btnNavigation->setPrevToggle(0);
+    } else {
+        btnNavigation->setPrevToggle(1);
+    }
+}
+
+void Navigate::firstRowToggle(){
+    if (parser->isFirstRow()) {
+        btnNavigation->setPrevToggle(1);
+    } else {
+        btnNavigation->setPrevToggle(2);
+    }
 }
 
 void Navigate::hotkeyPressed(int key){

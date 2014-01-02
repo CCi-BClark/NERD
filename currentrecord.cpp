@@ -24,3 +24,8 @@ void CurrentRecord::setRecord(QStringList record){
 void CurrentRecord::clearList(){
     ui->listWidget->clear();
 }
+
+void CurrentRecord::setSelection(int column){
+    ui->listWidget->itemSelectionChanged();
+    ui->listWidget->item(column)->setSelected(true);
+}
