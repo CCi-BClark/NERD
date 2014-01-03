@@ -30,12 +30,14 @@ void SystemFocusWidget::setSelection(int column){
 
 void SystemFocusWidget::clickToggle(){
     if(isOn){
+        emit changeSystemFocus();
         isOn = false;
         setTitle("Start");
         recordView->hide();
         QApplication::processEvents();
         hotkeys->haltHotkeys();
     } else {
+        emit changeSystemFocus();
         isOn = true;
         setTitle("Stop");
         recordView->show();

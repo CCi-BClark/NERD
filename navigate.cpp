@@ -61,19 +61,13 @@ void Navigate::sheetIndexChanged(int index){
 }
 
 void Navigate::setNextCell(){
-    //if (!parser->isLastRow() && !parser->isLastColumn()) {}
-    int prevRow = parser->getCurrentRow();
-    parser->setNextCell();
-    int currentRow = parser->getCurrentRow();
-    if(parser->isLastRow()){
-        lastColumnToggle();
+    if (parser->isLastRow()) {
+        if (!parser->isLastColumn()) {
+            nextCell();
+        }
     } else {
-        firstRowToggle();
+        nextCell();
     }
-    if (prevRow < currentRow) {
-        focusRecord->setRecord(headerList, parser->getRow(parser->getCurrentRow()+1));
-    }
-    focusRecord->setSelection(parser->getCurrentColumn());
 }
 
 void Navigate::setNextRecord(){
@@ -81,31 +75,31 @@ void Navigate::setNextRecord(){
         parser->setNextRecord();
         if(parser->isLastRow()){
             btnNavigation->setNextToggle(1);
+            emit nextState(false);
+            emit nextCellState(true);
             firstRowToggle();
         } else {
             btnNavigation->setNextToggle(2);
+            emit nextState(true);
+            emit nextCellState(true);
             btnNavigation->setPrevToggle(2);
+            emit prevState(true);
+            emit prevCellState(true);
         }
         focusRecord->setRecord(headerList, parser->getRow(parser->getCurrentRow()+1));
         focusRecord->setSelection(parser->getCurrentColumn());
     }
+    qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
 }
 
 void Navigate::setPrevCell(){
-    int prevRow = parser->getCurrentRow();
-    parser->setPrevCell();
-    int currentRow = parser->getCurrentRow();
-    if(parser->isFirstRow()){
-        firstColumnToggle();
-        lastRowToggle();
+    if (parser->isFirstRow()) {
+        if (!parser->isFirstColumn()) {
+            prevCell();
+        }
     } else {
-        btnNavigation->setPrevToggle(2);
-        lastRowToggle();
+        prevCell();
     }
-    if (prevRow > currentRow) {
-        focusRecord->setRecord(headerList, parser->getRow(parser->getCurrentRow()+1));
-    }
-    focusRecord->setSelection(parser->getCurrentColumn());
 }
 
 void Navigate::setPrevRecord(){
@@ -113,14 +107,21 @@ void Navigate::setPrevRecord(){
         parser->setPrevRecord();
         if(parser->isFirstRow()){
             btnNavigation->setPrevToggle(0);
+            emit prevState(false);
+            emit prevCellState(false);
             lastRowToggle();
         } else {
             btnNavigation->setPrevToggle(2);
+            emit prevState(true);
+            emit prevCellState(true);
             btnNavigation->setNextToggle(2);
+            emit nextState(true);
+            emit nextCellState(true);
         }
         focusRecord->setRecord(headerList, parser->getRow(parser->getCurrentRow()+1));
         focusRecord->setSelection(parser->getCurrentColumn());
     }
+    qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
 }
 
 void Navigate::toggleState(){
@@ -134,69 +135,110 @@ void Navigate::setSignalSlot(){
     connect(btnNavigation,SIGNAL(clickedPrevRecord()),this,SLOT(setPrevRecord()));
     connect(focusRecord,SIGNAL(hotkey(int)),this,SLOT(hotkeyPressed(int)));
     connect(excelView, SIGNAL(indexChanged(int)),this,SLOT(sheetIndexChanged(int)));
+    connect(focusRecord,SIGNAL(changeSystemFocus()),this,SLOT(emitState()));
+}
+
+void Navigate::emitState(){
+    emit stateChange();
 }
 
 void Navigate::lastRowToggle(){
     if (parser->isLastRow()) {
         btnNavigation->setNextToggle(1);
+        emit nextState(false);
+        emit nextCellState(true);
     } else {
         btnNavigation->setNextToggle(2);
+        emit nextState(true);
+        emit nextCellState(true);
     }
 }
 
 void Navigate::lastColumnToggle(){
     if (parser->isLastColumn()) {
         btnNavigation->setNextToggle(0);
+        emit nextState(false);
+        emit nextCellState(false);
     } else {
         btnNavigation->setNextToggle(1);
+        emit nextState(false);
+        emit nextCellState(true);
     }
 }
 
 void Navigate::firstColumnToggle(){
     if (parser->isFirstColumn()) {
         btnNavigation->setPrevToggle(0);
+        emit prevState(false);
+        emit prevCellState(false);
     } else {
         btnNavigation->setPrevToggle(1);
+        emit prevState(false);
+        emit prevCellState(true);
     }
 }
 
 void Navigate::firstRowToggle(){
     if (parser->isFirstRow()) {
         btnNavigation->setPrevToggle(1);
+        emit prevState(false);
+        emit prevCellState(true);
     } else {
         btnNavigation->setPrevToggle(2);
+        emit prevState(true);
+        emit prevCellState(true);
     }
+}
+
+void Navigate::nextCell(){
+    int prevRow = parser->getCurrentRow();
+    parser->setNextCell();
+    int currentRow = parser->getCurrentRow();
+    if(parser->isLastRow()){
+        lastColumnToggle();
+    } else {
+        firstRowToggle();
+    }
+    if (prevRow < currentRow) {
+        focusRecord->setRecord(headerList, parser->getRow(parser->getCurrentRow()+1));
+    }
+    focusRecord->setSelection(parser->getCurrentColumn());
+    qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
+}
+
+void Navigate::prevCell(){
+    int prevRow = parser->getCurrentRow();
+    parser->setPrevCell();
+    int currentRow = parser->getCurrentRow();
+    if(parser->isFirstRow()){
+        firstColumnToggle();
+        lastRowToggle();
+    } else {
+        btnNavigation->setPrevToggle(2);
+        emit prevState(true);
+        emit prevCellState(true);
+        lastRowToggle();
+    }
+    if (prevRow > currentRow) {
+        focusRecord->setRecord(headerList, parser->getRow(parser->getCurrentRow()+1));
+    }
+    focusRecord->setSelection(parser->getCurrentColumn());
+    qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
 }
 
 void Navigate::hotkeyPressed(int key){
     switch (key) {
     case 200:
-        if (parser->isLastRow()) {
-            if (!parser->isLastColumn()) {
-                setNextCell();
-            }
-        } else {
-            setNextCell();
-        }
+        setNextCell();
         break;
     case 300:
-        if (!parser->isLastRow()) {
-            setNextRecord();
-        }
+        setNextRecord();
         break;
     case 400:
-        if (parser->isFirstRow()) {
-            if (!parser->isFirstColumn()) {
-                setPrevCell();
-            }
-        } else {
-            setPrevCell();
-        }
+        setPrevCell();
         break;
     case 500:
-        if (!parser->isFirstRow()) {
-            setPrevRecord();
-        }
+        setPrevRecord();
         break;
     default:
         break;

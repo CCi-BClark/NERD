@@ -22,8 +22,7 @@ public:
     void setSelection(int column);
 
 signals:
-    void startSystemFocus(void);
-    void stopSystemFocus(void);
+    void changeSystemFocus(void);
     void hotkey(int);
 
 public slots:

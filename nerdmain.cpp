@@ -12,8 +12,8 @@ NerdMain::NerdMain(QWidget *parent): QMainWindow(parent), ui(new Ui::NerdMain){
 
     mainLayout->addWidget(open);
     ui->layout->addLayout(mainLayout);
-    setMenuKeys();
     setSignalSlot();
+    setMenuKeys();
 }
 
 NerdMain::~NerdMain(){
@@ -61,28 +61,64 @@ void NerdMain::toggleLayout(int control){
 }
 
 void NerdMain::setSignalSlot(){
+    connect(ui->menuNextRecord,SIGNAL(triggered()),data,SLOT(setNextRecord()));
+    connect(ui->menuPrevRecord,SIGNAL(triggered()),data,SLOT(setPrevRecord()));
+    connect(ui->menuNextCell,SIGNAL(triggered()),data,SLOT(setNextCell()));
+    connect(ui->menuPrevCell,SIGNAL(triggered()),data,SLOT(setPrevCell()));
+
     connect(ui->menuAbout,SIGNAL(triggered()),aboutWin,SLOT(show()));
     connect(ui->menuHomepage,SIGNAL(triggered()),this,SLOT(openHomepage()));
     connect(open,SIGNAL(fileOpen()),this,SLOT(openFile()));
     connect(ui->menuOpen,SIGNAL(triggered()),open,SLOT(btnClicked()));
     connect(ui->menuExit,SIGNAL(triggered()),this,SLOT(close()));
     connect(ui->menuStart,SIGNAL(triggered()),data,SLOT(toggleState()));
+    connect(ui->menuStop,SIGNAL(triggered()),data,SLOT(toggleState()));
+    connect(data,SIGNAL(stateChange()),this,SLOT(toggleState()));
 
-    connect(ui->menuNextRecord,SIGNAL(triggered()),data,SLOT(setNextRecord()));
-    connect(ui->menuPrevRecord,SIGNAL(triggered()),data,SLOT(setPrevRecord()));
-    connect(ui->menuNextCell,SIGNAL(triggered()),data,SLOT(setNextCell()));
-    connect(ui->menuPrevCell,SIGNAL(triggered()),data,SLOT(setPrevCell()));
+    connect(data,SIGNAL(nextState(bool)),this,SLOT(toggleNext(bool)));
+    connect(data,SIGNAL(nextCellState(bool)),this,SLOT(toggleNextCell(bool)));
+    connect(data,SIGNAL(prevState(bool)),this,SLOT(togglePrev(bool)));
+    connect(data,SIGNAL(prevCellState(bool)),this,SLOT(togglePrevCell(bool)));
 }
 
 void NerdMain::setMenuKeys(){
-    ui->menuExit->setShortcut(Qt::CTRL + Qt::Key_Q);
-    ui->menuOpen->setShortcut(Qt::CTRL + Qt::Key_O);
-    ui->menuStart->setShortcut(Qt::CTRL + Qt::Key_S);
-    ui->menuStop->setShortcut(Qt::CTRL + Qt::Key_S);
+    /* NEED TO COME UP WITH SOLUTION TO APPLYING MENU
+     * SHORTCUT KEYS NOT CONFLICT WITH QSYSTEMHOTKEY
     ui->menuNextCell->setShortcut(Qt::CTRL + Qt::Key_X);
     ui->menuPrevCell->setShortcut(Qt::CTRL + Qt::Key_A);
     ui->menuNextRecord->setShortcut(Qt::ALT + Qt::Key_X);
     ui->menuPrevRecord->setShortcut(Qt::ALT + Qt::Key_A);
+    */
+    ui->menuExit->setShortcut(Qt::CTRL + Qt::Key_Q);
+    ui->menuOpen->setShortcut(Qt::CTRL + Qt::Key_O);
+    ui->menuStart->setShortcut(Qt::CTRL + Qt::Key_S);
+    ui->menuStop->setShortcut(Qt::CTRL + Qt::Key_S);
+}
+
+void NerdMain::toggleState(){
+    if (ui->menuStart->isEnabled()){
+        ui->menuStart->setEnabled(false);
+        ui->menuStop->setEnabled(true);
+    } else {
+        ui->menuStart->setEnabled(true);
+        ui->menuStop->setEnabled(false);
+    }
+}
+
+void NerdMain::toggleNext(bool tf){
+    ui->menuNextRecord->setEnabled(tf);
+}
+
+void NerdMain::toggleNextCell(bool tf){
+    ui->menuNextCell->setEnabled(tf);
+}
+
+void NerdMain::togglePrev(bool tf){
+    ui->menuPrevCell->setEnabled(tf);
+}
+
+void NerdMain::togglePrevCell(bool tf){
+    ui->menuPrevRecord->setEnabled(tf);
 }
 
 void NerdMain::openHomepage(){

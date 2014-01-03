@@ -6,6 +6,8 @@
 #include <QVBoxLayout>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QShortcut>
+#include <QShortcut>
 #include <about.h>
 #include <fileopen.h>
 #include <navigate.h>
@@ -31,6 +33,11 @@ protected:
     void setMenuKeys(void);
 
 protected slots:
+    void toggleState(void);
+    void toggleNext(bool tf);
+    void toggleNextCell(bool tf);
+    void togglePrev(bool tf);
+    void togglePrevCell(bool tf);
 
 private slots:
     void openHomepage(void);        // Open CCi homepage.

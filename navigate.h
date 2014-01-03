@@ -18,6 +18,11 @@ public:
     QString getDataFileName(void);
 
 signals:
+    void stateChange(void);
+    void nextState(bool);
+    void prevState(bool);
+    void nextCellState(bool);
+    void prevCellState(bool);
 
 public slots:
     void sheetIndexChanged(int index);
@@ -31,11 +36,16 @@ public slots:
 protected:
     void setSignalSlot(void);
 
+protected slots:
+    void emitState(void);
+
 private:
     void lastRowToggle(void);
     void lastColumnToggle(void);
     void firstColumnToggle(void);
     void firstRowToggle(void);
+    void nextCell(void);
+    void prevCell(void);
 
     ExcelMockWidget *excelView;
     NavigateButtons *btnNavigation;
