@@ -61,6 +61,7 @@ void Navigate::sheetIndexChanged(int index){
 }
 
 void Navigate::setNextCell(){
+    //if (!parser->isLastRow() && !parser->isLastColumn()) {}
     int prevRow = parser->getCurrentRow();
     parser->setNextCell();
     int currentRow = parser->getCurrentRow();
@@ -73,21 +74,21 @@ void Navigate::setNextCell(){
         focusRecord->setRecord(headerList, parser->getRow(parser->getCurrentRow()+1));
     }
     focusRecord->setSelection(parser->getCurrentColumn());
-    qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
 }
 
 void Navigate::setNextRecord(){
-    parser->setNextRecord();
-    if(parser->isLastRow()){
-        btnNavigation->setNextToggle(1);
-        firstRowToggle();
-    } else {
-        btnNavigation->setNextToggle(2);
-        btnNavigation->setPrevToggle(2);
+    if (!parser->isLastRow()) {
+        parser->setNextRecord();
+        if(parser->isLastRow()){
+            btnNavigation->setNextToggle(1);
+            firstRowToggle();
+        } else {
+            btnNavigation->setNextToggle(2);
+            btnNavigation->setPrevToggle(2);
+        }
+        focusRecord->setRecord(headerList, parser->getRow(parser->getCurrentRow()+1));
+        focusRecord->setSelection(parser->getCurrentColumn());
     }
-    focusRecord->setRecord(headerList, parser->getRow(parser->getCurrentRow()+1));
-    focusRecord->setSelection(parser->getCurrentColumn());
-    qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
 }
 
 void Navigate::setPrevCell(){
@@ -105,21 +106,25 @@ void Navigate::setPrevCell(){
         focusRecord->setRecord(headerList, parser->getRow(parser->getCurrentRow()+1));
     }
     focusRecord->setSelection(parser->getCurrentColumn());
-    qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
 }
 
 void Navigate::setPrevRecord(){
-    parser->setPrevRecord();
-    if(parser->isFirstRow()){
-        btnNavigation->setPrevToggle(0);
-        lastRowToggle();
-    } else {
-        btnNavigation->setPrevToggle(2);
-        btnNavigation->setNextToggle(2);
+    if (!parser->isFirstRow()) {
+        parser->setPrevRecord();
+        if(parser->isFirstRow()){
+            btnNavigation->setPrevToggle(0);
+            lastRowToggle();
+        } else {
+            btnNavigation->setPrevToggle(2);
+            btnNavigation->setNextToggle(2);
+        }
+        focusRecord->setRecord(headerList, parser->getRow(parser->getCurrentRow()+1));
+        focusRecord->setSelection(parser->getCurrentColumn());
     }
-    focusRecord->setRecord(headerList, parser->getRow(parser->getCurrentRow()+1));
-    focusRecord->setSelection(parser->getCurrentColumn());
-    qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
+}
+
+void Navigate::toggleState(){
+    focusRecord->clickToggle();
 }
 
 void Navigate::setSignalSlot(){

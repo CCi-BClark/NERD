@@ -26,6 +26,7 @@ public slots:
     void setNextRecord(void);
     void setPrevCell(void);
     void setPrevRecord(void);
+    void toggleState(void);
 
 protected:
     void setSignalSlot(void);

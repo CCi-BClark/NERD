@@ -28,6 +28,7 @@ public slots:
 
 protected:
     void setSignalSlot(void);
+    void setMenuKeys(void);
 
 protected slots:
 

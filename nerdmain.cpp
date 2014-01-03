@@ -12,7 +12,7 @@ NerdMain::NerdMain(QWidget *parent): QMainWindow(parent), ui(new Ui::NerdMain){
 
     mainLayout->addWidget(open);
     ui->layout->addLayout(mainLayout);
-
+    setMenuKeys();
     setSignalSlot();
 }
 
@@ -64,8 +64,25 @@ void NerdMain::setSignalSlot(){
     connect(ui->menuAbout,SIGNAL(triggered()),aboutWin,SLOT(show()));
     connect(ui->menuHomepage,SIGNAL(triggered()),this,SLOT(openHomepage()));
     connect(open,SIGNAL(fileOpen()),this,SLOT(openFile()));
-    connect(ui->menuOpen,SIGNAL(triggered()),this,SLOT(openFile()));
+    connect(ui->menuOpen,SIGNAL(triggered()),open,SLOT(btnClicked()));
     connect(ui->menuExit,SIGNAL(triggered()),this,SLOT(close()));
+    connect(ui->menuStart,SIGNAL(triggered()),data,SLOT(toggleState()));
+
+    connect(ui->menuNextRecord,SIGNAL(triggered()),data,SLOT(setNextRecord()));
+    connect(ui->menuPrevRecord,SIGNAL(triggered()),data,SLOT(setPrevRecord()));
+    connect(ui->menuNextCell,SIGNAL(triggered()),data,SLOT(setNextCell()));
+    connect(ui->menuPrevCell,SIGNAL(triggered()),data,SLOT(setPrevCell()));
+}
+
+void NerdMain::setMenuKeys(){
+    ui->menuExit->setShortcut(Qt::CTRL + Qt::Key_Q);
+    ui->menuOpen->setShortcut(Qt::CTRL + Qt::Key_O);
+    ui->menuStart->setShortcut(Qt::CTRL + Qt::Key_S);
+    ui->menuStop->setShortcut(Qt::CTRL + Qt::Key_S);
+    ui->menuNextCell->setShortcut(Qt::CTRL + Qt::Key_X);
+    ui->menuPrevCell->setShortcut(Qt::CTRL + Qt::Key_A);
+    ui->menuNextRecord->setShortcut(Qt::ALT + Qt::Key_X);
+    ui->menuPrevRecord->setShortcut(Qt::ALT + Qt::Key_A);
 }
 
 void NerdMain::openHomepage(){
