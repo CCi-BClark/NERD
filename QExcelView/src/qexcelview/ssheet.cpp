@@ -1,6 +1,6 @@
 #include "ssheet.h"
 #include "ui_ssheet.h"
-#include <QItemSelectionModel>
+
 Ssheet::Ssheet(QWidget *parent) : QWidget(parent), ui(new Ui::Ssheet){
     ui->setupUi(this);
 
@@ -27,7 +27,6 @@ void Ssheet::setSheetRowSpan(int n){
 }
 
 void Ssheet::setSheetColumnSpan(int n){
-    // We add 1 to n because setColumnCount() starts at 0 for no columns and wish to keep array math.
     ui->table->setColumnCount(n);
 }
 
@@ -39,5 +38,9 @@ void Ssheet::setCell(int row, int column, QVariant cell){
     QTableWidgetItem *input = new QTableWidgetItem;
     input->setData(0,cell);
     ui->table->setItem(row-1,column,input);
+}
+
+void Ssheet::selectCell(int row, int column){
+    ui->table->setCurrentCell(row,column);
 }
 

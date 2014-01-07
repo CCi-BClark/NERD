@@ -2,17 +2,17 @@ TODO
 
 - Fix when parent window closes other windows stay open.
 
-- (In-Progress)Put data table and functions to it own widget class from prototype Beta v.2.
-
 - Make "Current Record Tracker" window size no larger than screen height.
 
 - Add status bar to CurrentRecordWidget to track current row of total rows.
 
 - Make QListView represent selected cell.
 
-- Make MockExcelWidget represent selected cell/row.
+- Make MockExcelWidget represent selected row in lighter shade.
 
-- Link menu bar to shortcut keys. Ensure menu item represent btnNavigation state.
+- Fix issue with menu shorcuts conflicting with QSystemHotkey keys. 
+
+- Documentation for end user.
 
 - Test on Mac, Linux, WinXp, Win8
 

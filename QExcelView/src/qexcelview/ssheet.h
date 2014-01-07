@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QTableWidgetItem>
+#include <QItemSelectionModel>
 
 namespace Ui {
 class Ssheet;

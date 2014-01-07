@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QLayout>
-#include <excelmockwidget.h>
+#include <excelview.h>
 #include <navigatebuttons.h>
 #include <parseexcel.h>
 #include <systemfocuswidget.h>
@@ -23,6 +23,7 @@ signals:
     void prevState(bool);
     void nextCellState(bool);
     void prevCellState(bool);
+    void cellLocation(int, int);
 
 public slots:
     void sheetIndexChanged(int index);
@@ -38,6 +39,7 @@ protected:
 
 protected slots:
     void emitState(void);
+    void emitLocation(void);
 
 private:
     void lastRowToggle(void);
@@ -47,7 +49,7 @@ private:
     void nextCell(void);
     void prevCell(void);
 
-    ExcelMockWidget *excelView;
+    ExcelView *excelView;
     NavigateButtons *btnNavigation;
     SystemFocusWidget *focusRecord;
     ParseExcel *parser;

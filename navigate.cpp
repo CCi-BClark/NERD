@@ -2,7 +2,7 @@
 #include <QDebug>
 
 Navigate::Navigate(QWidget *parent) : QWidget(parent){
-    excelView = new ExcelMockWidget;
+    excelView = new ExcelView;
     btnNavigation = new NavigateButtons;
     focusRecord = new SystemFocusWidget;
     parser = new ParseExcel;
@@ -48,7 +48,6 @@ void Navigate::setDataFile(QFileInfo file){
     }
     sheetIndexChanged(0);
     focusRecord->setRecord(headerList, parser->getRow(parser->getCurrentRow()+1));
-    qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
 }
 
 QString Navigate::getDataFileName(){
@@ -68,6 +67,7 @@ void Navigate::setNextCell(){
     } else {
         nextCell();
     }
+    emitLocation();
 }
 
 void Navigate::setNextRecord(){
@@ -89,7 +89,7 @@ void Navigate::setNextRecord(){
         focusRecord->setRecord(headerList, parser->getRow(parser->getCurrentRow()+1));
         focusRecord->setSelection(parser->getCurrentColumn());
     }
-    qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
+    emitLocation();
 }
 
 void Navigate::setPrevCell(){
@@ -100,6 +100,7 @@ void Navigate::setPrevCell(){
     } else {
         prevCell();
     }
+    emitLocation();
 }
 
 void Navigate::setPrevRecord(){
@@ -121,7 +122,7 @@ void Navigate::setPrevRecord(){
         focusRecord->setRecord(headerList, parser->getRow(parser->getCurrentRow()+1));
         focusRecord->setSelection(parser->getCurrentColumn());
     }
-    qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
+    emitLocation();
 }
 
 void Navigate::toggleState(){
@@ -136,10 +137,16 @@ void Navigate::setSignalSlot(){
     connect(focusRecord,SIGNAL(hotkey(int)),this,SLOT(hotkeyPressed(int)));
     connect(excelView, SIGNAL(indexChanged(int)),this,SLOT(sheetIndexChanged(int)));
     connect(focusRecord,SIGNAL(changeSystemFocus()),this,SLOT(emitState()));
+    connect(this,SIGNAL(cellLocation(int,int)),excelView,SLOT(select(int,int)));
 }
 
 void Navigate::emitState(){
     emit stateChange();
+}
+
+void Navigate::emitLocation(){
+    qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
+    emit cellLocation(parser->getCurrentRow(), parser->getCurrentColumn());
 }
 
 void Navigate::lastRowToggle(){
@@ -203,7 +210,6 @@ void Navigate::nextCell(){
         focusRecord->setRecord(headerList, parser->getRow(parser->getCurrentRow()+1));
     }
     focusRecord->setSelection(parser->getCurrentColumn());
-    qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
 }
 
 void Navigate::prevCell(){
@@ -223,7 +229,6 @@ void Navigate::prevCell(){
         focusRecord->setRecord(headerList, parser->getRow(parser->getCurrentRow()+1));
     }
     focusRecord->setSelection(parser->getCurrentColumn());
-    qDebug() << "(" << parser->getCurrentRow() << ", " << parser->getCurrentColumn() << ")";
 }
 
 void Navigate::hotkeyPressed(int key){

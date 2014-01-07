@@ -83,7 +83,10 @@ void NerdMain::setSignalSlot(){
 
 void NerdMain::setMenuKeys(){
     /* NEED TO COME UP WITH SOLUTION TO APPLYING MENU
-     * SHORTCUT KEYS NOT CONFLICT WITH QSYSTEMHOTKEY
+     * SHORTCUT KEYS NOT CONFLICT WITH QSYSTEMHOTKEY.
+     * Note: Currently this is implimented under toggleState()
+     *       so it is represented as it is usable.
+     *
     ui->menuNextCell->setShortcut(Qt::CTRL + Qt::Key_X);
     ui->menuPrevCell->setShortcut(Qt::CTRL + Qt::Key_A);
     ui->menuNextRecord->setShortcut(Qt::ALT + Qt::Key_X);
@@ -99,9 +102,17 @@ void NerdMain::toggleState(){
     if (ui->menuStart->isEnabled()){
         ui->menuStart->setEnabled(false);
         ui->menuStop->setEnabled(true);
+        ui->menuNextCell->setShortcut(Qt::CTRL + Qt::Key_X);
+        ui->menuPrevCell->setShortcut(Qt::CTRL + Qt::Key_A);
+        ui->menuNextRecord->setShortcut(Qt::ALT + Qt::Key_X);
+        ui->menuPrevRecord->setShortcut(Qt::ALT + Qt::Key_A);
     } else {
         ui->menuStart->setEnabled(true);
         ui->menuStop->setEnabled(false);
+        ui->menuNextCell->setShortcut(QKeySequence());
+        ui->menuPrevCell->setShortcut(QKeySequence());
+        ui->menuNextRecord->setShortcut(QKeySequence());
+        ui->menuPrevRecord->setShortcut(QKeySequence());
     }
 }
 

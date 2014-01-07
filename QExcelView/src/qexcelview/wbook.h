@@ -1,12 +1,9 @@
 #ifndef WBOOK_H
 #define WBOOK_H
 
-#include "xlsxdocument.h"
-#include "xlsxcell.h"
-#include "xlsxcellrange.h"
-#include "xlsxformat.h"
-#include "xlsxdatavalidation.h"
 #include <QWidget>
+#include <QTabWidget>
+#include <ssheet.h>
 
 namespace Ui {
 class Wbook;
@@ -18,7 +15,11 @@ class Wbook : public QWidget{
 public:
     explicit Wbook(QWidget *parent = 0);
     ~Wbook();    
-    void createTab(int index, QString title, QWidget *worksheet);
+    void createTab(int index, QString title, Ssheet *worksheet);
+    void selectTab(int tab);
+    void selectCell(int row, int column);
+    int getCurrentTab(void);
+    QWidget *getCurrentWidget(void);
 signals:
     void changedIndex(int);
 public slots:
